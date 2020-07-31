@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useDispatch } from 'react';
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState('');

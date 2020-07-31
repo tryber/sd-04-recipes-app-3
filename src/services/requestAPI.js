@@ -1,11 +1,10 @@
-const requestAPI = (url) => {
+const requestAPI = (url) =>
   fetch(url).then((response) =>
-    response.then((json) => {
-      if (response.ok) return Promise.resolve(json);
-      return Promise.reject(json);
-    },
-    ),
+    response
+      .json()
+      .then((json) =>
+        response.ok ? Promise.resolve(json) : Promise.reject(json),
+      ),
   );
-};
 
 export default requestAPI;
