@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchMeals } from '../../actions/apiRequest';
@@ -36,6 +37,11 @@ const SearchButton = ({ searchRadio, searchInput }) => {
       Buscar
     </button>
   );
+};
+
+SearchButton.propTypes = {
+  searchRadio: PropTypes.string.isRequired,
+  searchInput: PropTypes.string.isRequired,
 };
 
 export default SearchButton;
