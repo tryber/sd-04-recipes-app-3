@@ -8,7 +8,7 @@ const loginScreen = () =>
   <form
     onSubmit={(e) => {
       e.preventDefault();
-      const emailValue = document.getElementById('email-input');
+      const emailValue = document.getElementById('email-input').value;
       // const passValue = document.getElementById('password-input');
       if (!validateEmail(emailValue)) {
         alert('Digite um email valido!');
