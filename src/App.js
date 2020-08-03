@@ -2,13 +2,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import loginScreen from './pages/loginScreen';
+import mainScreen from './pages/mainScreen';
 
 function App() {
   return (
     <div id="meals">
       <main>
         <Switch>
-          <Route to="/" component={loginScreen} />
+          <Route to="/" component={mainScreen} />
           <Route to="/comidas" />
           <Route to="/bebidas" />
           <Route to="/comidas/:id" />
