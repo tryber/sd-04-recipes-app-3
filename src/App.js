@@ -1,15 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import SearchBar from './components/SearchBar/SearchBar';
 import './App.css';
+import loginScreen from './pages/loginScreen';
 
 function App() {
   return (
     <div id="meals">
-      <SearchBar />
       <main>
         <Switch>
-          <Route to="/" />
+          <Route to="/" component={loginScreen} />
           <Route to="/comidas" />
           <Route to="/bebidas" />
           <Route to="/comidas/:id" />
@@ -28,6 +27,7 @@ function App() {
         </Switch>
       </main>
     </div>
+
   );
 }
 
