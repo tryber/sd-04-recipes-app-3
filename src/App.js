@@ -3,10 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import LoginScreen from './pages/LoginScreen';
 import MealsScreen from './pages/MealsScreen';
+import Header from './components/Header/Header';
 
 function App() {
   return (
     <div id="meals">
+      <Header />
       <main>
         <Switch>
           <Route exact path="/" component={LoginScreen} />

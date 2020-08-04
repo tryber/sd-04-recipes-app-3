@@ -4,7 +4,7 @@ function validateEmail(email) {
   const re = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
   return re.test(email);
 }
-const loginScreen = () =>
+const LoginScreen = () => (
   <form
     onSubmit={(e) => {
       e.preventDefault();
@@ -37,11 +37,12 @@ const loginScreen = () =>
     <input
       id="password-input"
       data-testid="password-input"
-      minLength="6" type="password"
+      minLength="6"
+      type="password"
       placeholder="Password"
     />
-    <button id="login-submit-btn" data-testid="login-submit-btn" disabled>Login</button>
-  </form >;
+    <button type="button" id="login-submit-btn" data-testid="login-submit-btn" disabled>Login</button>
+  </form>
+);
 
-
-export default loginScreen;
+export default LoginScreen;
