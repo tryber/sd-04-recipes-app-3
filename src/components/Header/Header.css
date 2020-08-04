@@ -33,23 +33,23 @@ button {
 }
 
 .header > p {
-  text-align: center;
-  vertical-align: middle;
   font-size: 35px;
   margin-top: 30px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .ico_user {
-  width: 30px;
+  background: url('../../images/profileIcon.svg');
   height: 30px;
   margin: 0 15px;
-  background: url('../../images/profileIcon.svg');
+  width: 30px;
 }
 
 .ico_search {
-  width: 30px;
-  height: 30px;
-  margin: 0 15px;
   background: url('../../images/searchIcon.svg');
   cursor: pointer;
+  height: 30px;
+  margin: 0 15px;
+  width: 30px;
 }
