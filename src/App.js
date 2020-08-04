@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import LoginScreen from './pages/LoginScreen';
 import MealsScreen from './pages/MealsScreen';
+import DetailsScreen from './pages/DetailsScreen/DetailsScreen';
 
 function App() {
   return (
@@ -10,10 +11,10 @@ function App() {
       <main>
         <Switch>
           <Route exact path="/" component={LoginScreen} />
-          <Route path="/comidas" component={MealsScreen} />
-          <Route path="/bebidas" />
-          <Route exact path="/comidas/:id" />
-          <Route exact path="/bebidas/:id" />
+          <Route exact path="/comidas" component={MealsScreen} />
+          <Route exact path="/bebidas" />
+          <Route exact path="/comidas/:id" component={DetailsScreen} />
+          <Route exact path="/bebidas/:id" component={DetailsScreen} />
           <Route exact path="/comidas/:id/in-progress" />
           <Route exact path="/bebidas/:id/in-progress" />
           <Route path="/explorar" />
