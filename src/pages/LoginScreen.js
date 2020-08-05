@@ -1,5 +1,7 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import '../css/loginScreen.css';
+import { setLS } from '../helpers';
 
 function validateEmail(email) {
   const re = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
@@ -16,7 +18,10 @@ const LoginScreen = () => (
           alert('Digite um email valido!');
           return false;
         }
-        return true;
+        setLS('mealsToken', 1);
+        setLS('cocktailsToken', 1);
+        setLS('user', { email: emailValue });
+        return history.push('/comidas');
       }}
       onChange={() => {
         const emailValue = document.getElementById('email-input').value;
