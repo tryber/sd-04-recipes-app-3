@@ -5,6 +5,7 @@ import { fetchMeals } from '../../actions/apiRequest';
 import IngredientsList from './IngredientsList';
 import EmbeddedVideo from './EmbeddedVideo';
 
+// Get the desired object key from the recipe and returns an array
 const recipeKeysToArray = (recipe, key) => {
   return Object.keys(recipe)
     .filter((item) => item.startsWith(key))
@@ -12,6 +13,7 @@ const recipeKeysToArray = (recipe, key) => {
     .filter((item) => item !== '' && item !== null);
 };
 
+// Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
   const ingredientsKeys = recipeKeysToArray(recipe, 'strIngredient');
   console.log(ingredientsKeys);
@@ -23,6 +25,7 @@ const getIngredients = (recipe) => {
   }));
 };
 
+// Returns in an object the main route (comidas or bebidas) and the recipe ID
 const getRouteInfo = (location) => {
   const routeInfoArr = location.pathname
     .split('/')
@@ -30,6 +33,7 @@ const getRouteInfo = (location) => {
   return { mainRoute: routeInfoArr[0], recipeId: routeInfoArr[1] };
 };
 
+// Returns a string with the correct endpoint based on the URL main route
 const returnEndpoint = (location) => {
   const routeDetails = getRouteInfo(location);
   return routeDetails.mainRoute === 'comidas'
