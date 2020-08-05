@@ -9,11 +9,12 @@ const recipeKeysToArray = (recipe, key) => {
   return Object.keys(recipe)
     .filter((item) => item.startsWith(key))
     .map((item) => recipe[item])
-    .filter((item) => item !== '' || null);
+    .filter((item) => item !== '' && item !== null);
 };
 
 const getIngredients = (recipe) => {
   const ingredientsKeys = recipeKeysToArray(recipe, 'strIngredient');
+  console.log(ingredientsKeys);
   const measuresKeys = recipeKeysToArray(recipe, 'strMeasure');
 
   return ingredientsKeys.map((item, index) => ({
@@ -57,14 +58,17 @@ const Details = () => {
       <h1>{isFood ? recipe.strMeal : recipe.strDrink}</h1>
       <h3>{isFood ? recipe.strCategory : recipe.strAlcoholic}</h3>
       <div>
-        <h2>Ingredients</h2>
+        <h2>Ingredientes</h2>
         <IngredientsList ingredients={getIngredients} recipe={recipe} />
       </div>
       <div>
-        <h2>Instructions</h2>
+        <h2>Instruções</h2>
         <p>{recipe.strInstructions}</p>
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
+      <div>
+        <h2>Recomendadas</h2>
+      </div>
     </div>
   );
 };

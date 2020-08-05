@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const IngredientsList = ({ ingredients, recipe }) => {
   return (
@@ -10,6 +11,11 @@ const IngredientsList = ({ ingredients, recipe }) => {
       ))}
     </ul>
   );
+};
+
+IngredientsList.propTypes = {
+  ingredients: PropTypes.func.isRequired,
+  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default IngredientsList;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const EmbeddedVideo = ({ isFood, recipe }) => {
   return isFood ? (
@@ -12,6 +13,11 @@ const EmbeddedVideo = ({ isFood, recipe }) => {
       title="recipe video"
     />
   ) : null;
+};
+
+EmbeddedVideo.propTypes = {
+  isFood: PropTypes.bool.isRequired,
+  recipe: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default EmbeddedVideo;
