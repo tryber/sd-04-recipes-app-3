@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const EmbeddedVideo = ({ isFood, recipe }) => {
-  return isFood ? (
+const EmbeddedVideo = ({ isFood, recipe }) =>
+  isFood ? (
     <iframe
       width="560"
       height="315"
@@ -13,7 +13,6 @@ const EmbeddedVideo = ({ isFood, recipe }) => {
       title="recipe video"
     />
   ) : null;
-};
 
 EmbeddedVideo.propTypes = {
   isFood: PropTypes.bool.isRequired,

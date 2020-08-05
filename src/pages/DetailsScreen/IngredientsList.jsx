@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const IngredientsList = ({ ingredients, recipe }) => {
-  return (
+const IngredientsList = ({ ingredients, recipe }) => (
+  <div>
+    <h2>Ingredientes</h2>
     <ul>
       {ingredients(recipe).map((item) => (
         <li
@@ -10,8 +11,8 @@ const IngredientsList = ({ ingredients, recipe }) => {
         >{`${item.ingredient} - ${item.measure}`}</li>
       ))}
     </ul>
-  );
-};
+  </div>
+);
 
 IngredientsList.propTypes = {
   ingredients: PropTypes.func.isRequired,

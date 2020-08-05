@@ -6,17 +6,15 @@ import IngredientsList from './IngredientsList';
 import EmbeddedVideo from './EmbeddedVideo';
 
 // Get the desired object key from the recipe and returns an array
-const recipeKeysToArray = (recipe, key) => {
-  return Object.keys(recipe)
+const recipeKeysToArray = (recipe, key) =>
+  Object.keys(recipe)
     .filter((item) => item.startsWith(key))
     .map((item) => recipe[item])
     .filter((item) => item !== '' && item !== null);
-};
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
   const ingredientsKeys = recipeKeysToArray(recipe, 'strIngredient');
-  console.log(ingredientsKeys);
   const measuresKeys = recipeKeysToArray(recipe, 'strMeasure');
 
   return ingredientsKeys.map((item, index) => ({
@@ -53,7 +51,7 @@ const Details = () => {
 
   if (loading) return <h1>Loading...</h1>;
 
-  const isFood = getRouteInfo(location).mainRoute === 'comidas' ? true : false;
+  const isFood = getRouteInfo(location).mainRoute === 'comidas';
   const recipe = isFood ? recipeData.meals[0] : recipeData.drinks[0];
 
   return (
@@ -61,10 +59,7 @@ const Details = () => {
       <img src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb} alt="" />
       <h1>{isFood ? recipe.strMeal : recipe.strDrink}</h1>
       <h3>{isFood ? recipe.strCategory : recipe.strAlcoholic}</h3>
-      <div>
-        <h2>Ingredientes</h2>
-        <IngredientsList ingredients={getIngredients} recipe={recipe} />
-      </div>
+      <IngredientsList ingredients={getIngredients} recipe={recipe} />
       <div>
         <h2>Instruções</h2>
         <p>{recipe.strInstructions}</p>
