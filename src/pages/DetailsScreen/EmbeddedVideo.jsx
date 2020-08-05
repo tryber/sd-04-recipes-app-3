@@ -14,6 +14,7 @@ const EmbeddedVideo = ({ isFood, recipe }) => {
       allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
       allowFullScreen
       title="recipe video"
+      data-testid="video"
     />
   );
 };

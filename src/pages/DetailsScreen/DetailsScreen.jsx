@@ -56,13 +56,21 @@ const Details = () => {
 
   return (
     <div>
-      <img src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb} alt="" />
-      <h1>{isFood ? recipe.strMeal : recipe.strDrink}</h1>
-      <h3>{isFood ? recipe.strCategory : recipe.strAlcoholic}</h3>
+      <img
+        src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
+        alt={isFood ? recipe.strMeal : recipe.strDrink}
+        data-testid="recipe-photo"
+      />
+      <h1 data-testid="recipe-title">
+        {isFood ? recipe.strMeal : recipe.strDrink}
+      </h1>
+      <h3 data-testid="recipe-category">
+        {isFood ? recipe.strCategory : recipe.strAlcoholic}
+      </h3>
       <IngredientsList ingredients={getIngredients} recipe={recipe} />
       <div>
         <h2>Instruções</h2>
-        <p>{recipe.strInstructions}</p>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
       <div>
