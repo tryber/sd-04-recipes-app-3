@@ -4,12 +4,10 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import LoginScreen from './pages/LoginScreen';
 import MealsScreen from './pages/MealsScreen';
 import DrinksScreen from './pages/DrinksScreen';
-import Header from './components/Header/Header';
 
 function App() {
   return (
     <div id="meals">
-      <Header />
       <main>
         <Switch>
           <Route exact path="/" component={LoginScreen} />
