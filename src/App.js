@@ -4,12 +4,12 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import LoginScreen from './pages/LoginScreen';
 import MealsScreen from './pages/MealsScreen';
 import DrinksScreen from './pages/DrinksScreen';
+import Header from './components/Header/Header';
 
 function App() {
   return (
     <div id="meals">
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous" />
-
+      <Header />
       <main>
         <Switch>
           <Route exact path="/" component={LoginScreen} />
