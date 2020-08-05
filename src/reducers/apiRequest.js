@@ -1,8 +1,8 @@
 import * as actionType from '../actions/actionsType';
 
-const initialState = { loading: null, data: [], error: '' };
+const INITIAL_STATE = { loading: null, data: [], error: '' };
 
-const apiRequest = (state = initialState, action) => {
+const apiRequest = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionType.FETCH_MEALS_REQUEST:
       return {
@@ -13,8 +13,7 @@ const apiRequest = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        data: action.payload,
-        error: '',
+        data: Object.values(action.payload)[0].slice(0, 12),
       };
     case actionType.FETCH_MEALS_FAILURE:
       return {
