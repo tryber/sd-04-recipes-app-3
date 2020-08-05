@@ -58,7 +58,7 @@ const Details = () => {
     <div>
       <img
         src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
-        alt={isFood ? recipe.strMeal : recipe.strDrink}
+        alt="Recipe food"
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">
