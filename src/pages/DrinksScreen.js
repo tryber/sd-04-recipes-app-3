@@ -5,16 +5,16 @@ import ItemCard from '../components/ItemCard';
 import { fetchMeals } from '../actions/apiRequest';
 import '../css/mainScreen.css';
 
-const MealsScreen = ({ data, fetchMealsProps }) => {
+const DrinksScreen = ({ data, fetchMealsProps }) => {
   console.log(data);
-  useEffect(() => {
-    return (fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s='));
+  useEffect(async () => {
+    await fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
   }, []);
   return (
     <div className="main-page">
       <header />
       <div className="meals-container " data-ride="carousel">
-        {data.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+        {data.map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
       </div>
       <footer />
     </div>
@@ -29,9 +29,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMealsProps: (e) => dispatch(fetchMeals(e)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MealsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DrinksScreen);
 
-MealsScreen.propTypes = {
+DrinksScreen.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchMealsProps: PropTypes.func.isRequired,
 };
