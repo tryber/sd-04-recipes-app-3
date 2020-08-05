@@ -2,6 +2,25 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchMeals } from '../../actions/apiRequest';
+import IngredientsList from './IngredientsList';
+import EmbeddedVideo from './EmbeddedVideo';
+
+const recipeKeysToArray = (recipe, key) => {
+  return Object.keys(recipe)
+    .filter((item) => item.startsWith(key))
+    .map((item) => recipe[item])
+    .filter((item) => item !== '' || null);
+};
+
+const getIngredients = (recipe) => {
+  const ingredientsKeys = recipeKeysToArray(recipe, 'strIngredient');
+  const measuresKeys = recipeKeysToArray(recipe, 'strMeasure');
+
+  return ingredientsKeys.map((item, index) => ({
+    ingredient: item,
+    measure: measuresKeys[index],
+  }));
+};
 
 const getRouteInfo = (location) => {
   const routeInfoArr = location.pathname
@@ -25,15 +44,29 @@ const Details = () => {
 
   useEffect(() => {
     dispatch(fetchMeals(returnEndpoint(location)));
-  }, []);
-
-  const isFood = getRouteInfo(location).mainRoute === 'comidas' ? true : false;
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) return <h1>Loading...</h1>;
 
+  const isFood = getRouteInfo(location).mainRoute === 'comidas' ? true : false;
   const recipe = isFood ? recipeData.meals[0] : recipeData.drinks[0];
 
-  return <div>Test</div>;
+  return (
+    <div>
+      <img src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb} alt="" />
+      <h1>{isFood ? recipe.strMeal : recipe.strDrink}</h1>
+      <h3>{isFood ? recipe.strCategory : recipe.strAlcoholic}</h3>
+      <div>
+        <h2>Ingredients</h2>
+        <IngredientsList ingredients={getIngredients} recipe={recipe} />
+      </div>
+      <div>
+        <h2>Instructions</h2>
+        <p>{recipe.strInstructions}</p>
+      </div>
+      <EmbeddedVideo isFood={isFood} recipe={recipe} />
+    </div>
+  );
 };
 
 export default Details;
