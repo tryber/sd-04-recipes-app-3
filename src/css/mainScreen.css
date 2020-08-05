@@ -1,7 +1,28 @@
+header {
+  background-color: rgb(228, 228, 228);
+  height: 25px;
+}
+
+footer {
+  background-color: rgb(228, 228, 228);
+  height: 25px;
+}
+
 .item-card {
   background-color: darkgrey;
-  border: 1px solid black;
   border-radius: 10px;
-  height: 500px;
-  width: 500px;
+  font-size: 10pt;
+  margin: 2px;
+  max-width: 75px;
+  text-align: center;
+}
+
+.card-img-top {
+  border-radius: 10px;
+}
+
+.meals-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
