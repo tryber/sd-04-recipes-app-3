@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import '../css/mainScreen.css';
 import ItemCard from '../components/ItemCard';
 import { fetchMeals } from '../actions/apiRequest';
-import '../css/mainScreen.css';
+import Header from '../components/Header/Header';
 
 const MealsScreen = ({ data, fetchMealsProps }) => {
   console.log(data);
@@ -12,8 +13,8 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
   }, []);
   return (
     <div className="main-page">
-      <header />
-      <div className="meals-container " data-ride="carousel">
+      <Header />
+      <div className="meals-container " >
         {data.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
       </div>
       <footer />
