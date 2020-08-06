@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { fetchMeals } from '../../actions/apiRequest';
-import IngredientsList from './IngredientsList';
-import EmbeddedVideo from './EmbeddedVideo';
+import { fetchMeals } from '../actions/apiRequest';
+import IngredientsList from '../components/DetailsScreen/IngredientsList';
+import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
 
 // Get the desired object key from the recipe and returns an array
 const recipeKeysToArray = (recipe, key) =>
@@ -39,9 +39,10 @@ const returnEndpoint = (location) => {
     : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
 };
 
-const Details = () => {
+const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  console.log(location);
   const recipeData = useSelector((state) => state.api.data);
   const loading = useSelector((state) => state.api.loading);
 
@@ -52,7 +53,9 @@ const Details = () => {
   if (loading) return <h1>Loading...</h1>;
 
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  const recipe = isFood ? recipeData.meals[0] : recipeData.drinks[0];
+  console.log(window.location);
+  console.log(recipeData);
+  const recipe = recipeData[0];
 
   return (
     <div>
@@ -80,4 +83,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default DetailsScreen;
