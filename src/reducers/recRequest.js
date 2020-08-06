@@ -1,21 +1,21 @@
 import * as actionType from '../actions/actionsType';
 
-const initialState = { loading: true, data: [], error: '' };
+const initialState = { loading: null, data: [], error: '' };
 
-const apiRequest = (state = INITIAL_STATE, action) => {
+const recRequest = (state = initialState, action) => {
   switch (action.type) {
-    case actionType.FETCH_MEALS_REQUEST:
+    case actionType.FETCH_REC_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case actionType.FETCH_MEALS_SUCCESS:
+    case actionType.FETCH_REC_SUCCESS:
       return {
         ...state,
         loading: false,
-        data: Object.values(action.payload)[0].slice(0, 12),
+        data: action.payload,
       };
-    case actionType.FETCH_MEALS_FAILURE:
+    case actionType.FETCH_REC_FAILURE:
       return {
         ...state,
         loading: false,
@@ -26,4 +26,4 @@ const apiRequest = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default apiRequest;
+export default recRequest;

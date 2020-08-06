@@ -12,7 +12,7 @@ button {
   width: 100%;
 }
 
-.search-off {
+/* .search-off {
   display: none;
 }
 
@@ -28,7 +28,7 @@ button {
   position: absolute;
   top: 70px;
   width: 100%;
-}
+} */
 
 .header > p {
   font-size: 35px;
@@ -38,16 +38,18 @@ button {
 }
 
 .ico_user {
-  background: url('../images/profileIcon.svg');
   height: 30px;
   margin: 0 15px;
   width: 30px;
 }
 
-.ico_search {
-  background: url('../images/searchIcon.svg');
+.ico-search {
   cursor: pointer;
   height: 30px;
   margin: 0 15px;
   width: 30px;
+}
+
+.ico-search-btn {
+  background: lightgray;
 }

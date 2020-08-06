@@ -15,14 +15,14 @@ function App() {
           <Route path="/bebidas" component={DrinksScreen} />
           <Route exact path="/comidas/:id" />
           <Route exact path="/bebidas/:id" />
-          <Route exact path="/comidas/:id/in-progress" />
-          <Route exact path="/bebidas/:id/in-progress" />
+          <Route path="/comidas/:id/in-progress" />
+          <Route path="/bebidas/:id/in-progress" />
           <Route path="/explorar" />
           <Route exact path="/explorar/comidas" />
           <Route exact path="/explorar/bebidas" />
-          <Route exact path="/explorar/comidas/ingredientes" />
-          <Route exact path="/explorar/bebidas/ingredientes" />
-          <Route exact path="/explorar/comidas/area" />
+          <Route path="/explorar/comidas/ingredientes" />
+          <Route path="/explorar/bebidas/ingredientes" />
+          <Route path="/explorar/comidas/area" />
           <Route path="/perfil" />
           <Route path="/receitas-feitas" />
           <Route path="/receitas-favoritas" />

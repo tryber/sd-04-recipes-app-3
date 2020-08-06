@@ -8,7 +8,7 @@ const returnEndpoint = (searchInput, radioInput, location) => {
   const endpointCheck = radioInput === 'i' ? 'filter' : 'search';
   if (location.pathname.startsWith('/comidas')) {
     return `https://www.themealdb.com/api/json/v1/1/${endpointCheck}.php?${radioInput}=${searchInput}`;
-  } else if (location.pathname.startsWith('/bebidas')) {
+  } if (location.pathname.startsWith('/bebidas')) {
     return `https://www.thecocktaildb.com/api/json/v1/1/${endpointCheck}.php?${radioInput}=${searchInput}`;
   }
   return undefined;
