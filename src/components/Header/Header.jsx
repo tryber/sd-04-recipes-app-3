@@ -10,7 +10,6 @@ const Header = () => {
   const location = useLocation();
   const foodRoute = useRouteMatch('/comidas/:id/');
   const drinkRoute = useRouteMatch('/bebidas/:id/');
-  const styling = { display: 'flex' };
   const [barStatus, toogleSearch] = useState(false);
   const getTitle = () => {
     let titleArray = location.pathname.split('/');
@@ -19,19 +18,14 @@ const Header = () => {
     if (titleArray.length === 3) titleArray.splice(1, 1);
     titleArray = titleArray.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
     if (titleArray.includes('Area')) {
-      titleArray.pop();
-      titleArray.splice(1, 1, 'Origem');
+      titleArray.pop().splice(1, 1, 'Origem');
     }
-    const str = titleArray.join(' ');
-    return str;
+    return titleArray.join(' ');
   };
-
   const renderSearchBtn = () => {
     const title = getTitle();
     if (title.includes('Explorar') || title.includes('Receitas') || title.includes('Perfil')) {
-      if (!title.includes('Origem')) {
-        return <div className="empty" />;
-      }
+      if (!title.includes('Origem')) return <div className="empty" />;
     }
     return (
       <button type="button" className="ico-search-btn" onClick={() => toogleSearch(!barStatus)}>
@@ -39,14 +33,12 @@ const Header = () => {
       </button>
     );
   };
-
   if (
     location.pathname === '/' || foodRoute !== null || drinkRoute !== null
   ) return <div />;
-
   return (
     <React.Fragment>
-      <div className="header" style={styling}>
+      <div className="header">
         <Link to="/perfil">
           <div className="ico_user">
             <img data-testid="profile-top-btn" src={profileIcon} alt="profile icon" />
