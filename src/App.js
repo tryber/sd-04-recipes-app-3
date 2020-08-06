@@ -17,8 +17,10 @@ function App() {
           <Route exact path="/" component={LoginScreen} />
           <Route exact path="/comidas" component={MealsScreen} />
           <Route exact path="/bebidas" />
-          // <Route exact path="/comidas/:id" component={DetailsScreen} />
-          // <Route exact path="/bebidas/:id" component={DetailsScreen} />
+          {
+            // <Route exact path="/comidas/:id" component={DetailsScreen} />
+            // <Route exact path="/bebidas/:id" component={DetailsScreen} />
+          }
           <Route exact path="/comidas/:id" component={MealDetailScreen} />
           <Route exact path="/bebidas/:id" component={CocktailDetailScreen} />
           <Route path="/comidas/:id/in-progress" />
