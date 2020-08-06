@@ -5,11 +5,12 @@ import '../css/mainScreen.css';
 import ItemCard from '../components/ItemCard';
 import { fetchMeals } from '../actions/apiRequest';
 import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
 
 const MealsScreen = ({ data, fetchMealsProps }) => {
   console.log(data);
   useEffect(() => {
-    return (fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s='));
+    fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   }, []);
   return (
     <div className="main-page">
@@ -17,7 +18,7 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
       <div className="meals-container " >
         {data.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
       </div>
-      <footer />
+      <Footer />
     </div>
   );
 };
