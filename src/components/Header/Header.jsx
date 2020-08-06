@@ -6,33 +6,36 @@ import profileIcon from '../../images/profileIcon.svg';
 
 import './Header.css';
 
+const renderSearchBtn = (location, toggleSearch, barStatus, getTitle) => {
+  const title = getTitle(location);
+  if (title.includes('Explorar') || title.includes('Receitas') || title.includes('Perfil')) {
+    if (!title.includes('Origem')) return <div className="empty" />;
+  }
+  return (
+    <button type="button" className="ico-search-btn" onClick={() => toggleSearch(!barStatus)}>
+      <img data-testid="search-top-btn" src={searchIcon} alt="profile icon" className="ico-search" />
+    </button>
+  );
+};
+
+const getTitle = (location) => {
+  let titleArray = location.pathname.split('/');
+  titleArray.shift();
+  if (titleArray.length === 1) { titleArray = titleArray[0].split('-'); }
+  if (titleArray.length === 3) titleArray.splice(1, 1);
+  titleArray = titleArray.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+  if (titleArray.includes('Area')) {
+    titleArray.pop();
+    titleArray.splice(1, 1, 'Origem');
+  }
+  return titleArray.join(' ');
+};
+
 const Header = () => {
   const location = useLocation();
   const foodRoute = useRouteMatch('/comidas/:id/');
   const drinkRoute = useRouteMatch('/bebidas/:id/');
-  const [barStatus, toogleSearch] = useState(false);
-  const getTitle = () => {
-    let titleArray = location.pathname.split('/');
-    titleArray.shift();
-    if (titleArray.length === 1) { titleArray = titleArray[0].split('-'); }
-    if (titleArray.length === 3) titleArray.splice(1, 1);
-    titleArray = titleArray.map((word) => word.charAt(0).toUpperCase() + word.slice(1));
-    if (titleArray.includes('Area')) {
-      titleArray.pop().splice(1, 1, 'Origem');
-    }
-    return titleArray.join(' ');
-  };
-  const renderSearchBtn = () => {
-    const title = getTitle();
-    if (title.includes('Explorar') || title.includes('Receitas') || title.includes('Perfil')) {
-      if (!title.includes('Origem')) return <div className="empty" />;
-    }
-    return (
-      <button type="button" className="ico-search-btn" onClick={() => toogleSearch(!barStatus)}>
-        <img data-testid="search-top-btn" src={searchIcon} alt="profile icon" className="ico-search" />
-      </button>
-    );
-  };
+  const [barStatus, toggleSearch] = useState(false);
   if (
     location.pathname === '/' || foodRoute !== null || drinkRoute !== null
   ) return <div />;
@@ -44,8 +47,8 @@ const Header = () => {
             <img data-testid="profile-top-btn" src={profileIcon} alt="profile icon" />
           </div>
         </Link>
-        <p data-testid="page-title">{getTitle()}</p>
-        {renderSearchBtn()}
+        <p data-testid="page-title">{getTitle(location)}</p>
+        {renderSearchBtn(location, toggleSearch, barStatus, getTitle)}
       </div>
       {barStatus ? <SearchBar /> : null}
     </React.Fragment>
