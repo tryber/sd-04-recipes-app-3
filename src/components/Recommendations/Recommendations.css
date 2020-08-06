@@ -1,10 +1,10 @@
 .carousel {
+
   /* border: 1px solid black; */
-  
   display: block;
   height: 300px;
   overflow-x: scroll;
-  width: 99, 5%;
+  width: 100%;
 }
 
 .content {
@@ -17,8 +17,8 @@
 }
 
 .rec {
-  /* border: 1px solid rgb(167, 166, 166); */
 
+  /* border: 1px solid rgb(167, 166, 166); */
   border-radius: 5px;
   box-shadow: 0 10px 12px -5px rgb(167, 166, 166);
   display: inline-block;
