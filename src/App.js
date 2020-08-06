@@ -5,10 +5,12 @@ import LoginScreen from './pages/LoginScreen';
 import MealsScreen from './pages/MealsScreen';
 import MealDetailScreen from './pages/MealDetailScreen';
 import CocktailDetailScreen from './pages/CocktailDetailScreen';
+import Header from './components/Header/Header';
 
 function App() {
   return (
     <div id="meals">
+      <Header />
       <main>
         <Switch>
           <Route exact path="/" component={LoginScreen} />
