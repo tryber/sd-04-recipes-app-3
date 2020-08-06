@@ -19,9 +19,6 @@ export const fetchRec = (url) => (dispatch) => {
   dispatch(fetchRecRequest);
   return fetch(url)
     .then((response) => response.json())
-    .then((json) => {
-      // setLS('recommendations', json)
-      return dispatch(fetchRecSuccess(json))
-    })
+    .then((json) => dispatch(fetchRecSuccess(json)))
     .catch((error) => dispatch(fetchRecFailure(error)));
 };

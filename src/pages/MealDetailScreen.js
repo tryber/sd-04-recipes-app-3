@@ -5,9 +5,9 @@ import { fetchRec } from '../actions/recRequest';
 
 const MealDetailScreen = () => {
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.recommendations.loading);
-  const drinks = useSelector(state => state.recommendations.data.drinks);
-  let sixRecs = [];
+  const loading = useSelector((state) => state.recommendations.loading);
+  const drinks = useSelector((state) => state.recommendations.data.drinks);
+  const sixRecs = [];
 
   useEffect(() => {
     dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));

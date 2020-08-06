@@ -1,6 +1,7 @@
 import React from 'react';
-import './Recommendations.css';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import './Recommendations.css';
 
 const Recommendations = ({ sixRecs }) => {
   const location = useLocation();
@@ -30,6 +31,10 @@ const Recommendations = ({ sixRecs }) => {
       </div>
     </div>
   );
+};
+
+Recommendations.propTypes = {
+  sixRecs: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Recommendations;

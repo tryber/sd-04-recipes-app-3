@@ -5,9 +5,9 @@ import { fetchRec } from '../actions/recRequest';
 
 const CocktailDetailScreen = () => {
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.recommendations.loading);
-  const meals = useSelector(state => state.recommendations.data.meals);
-  let sixRecs = [];
+  const loading = useSelector((state) => state.recommendations.loading);
+  const meals = useSelector((state) => state.recommendations.data.meals);
+  const sixRecs = [];
 
   useEffect(() => {
     dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='));
@@ -26,6 +26,6 @@ const CocktailDetailScreen = () => {
       {loading === null ? 'Loading...' : <Recommendations sixRecs={sixRecs} />}
     </div>
   );
-}
+};
 
 export default CocktailDetailScreen;
