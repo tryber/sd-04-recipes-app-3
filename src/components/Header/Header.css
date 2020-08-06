@@ -12,26 +12,6 @@ button {
   width: 100%;
 }
 
-.search-off {
-  align-content: center;
-  align-items: center;
-  background: lightgray;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  height: 58px;
-  justify-content: space-around;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: -1;
-}
-
-.search-on {
-  top: 58px;
-  z-index: 0;
-}
-
 .header > p {
   font-size: 35px;
   margin-top: 30px;
@@ -40,16 +20,18 @@ button {
 }
 
 .ico_user {
-  background: url('../../images/profileIcon.svg');
   height: 30px;
   margin: 0 15px;
   width: 30px;
 }
 
-.ico_search {
-  background: url('../../images/searchIcon.svg');
+.ico-search {
   cursor: pointer;
   height: 30px;
   margin: 0 15px;
   width: 30px;
+}
+
+.ico-search-btn {
+  background: lightgray;
 }
