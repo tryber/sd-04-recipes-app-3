@@ -42,8 +42,8 @@ const returnEndpoint = (location) => {
 const Details = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const recipeData = useSelector((state) => state.apiRequest.data);
-  const loading = useSelector((state) => state.apiRequest.loading);
+  const recipeData = useSelector((state) => state.api.data);
+  const loading = useSelector((state) => state.api.loading);
 
   useEffect(() => {
     dispatch(fetchMeals(returnEndpoint(location)));
