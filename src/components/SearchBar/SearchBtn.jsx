@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMeals } from '../../actions/apiRequest';
 
 const returnEndpoint = (searchInput, radioInput, location) => {
@@ -17,12 +17,23 @@ const returnEndpoint = (searchInput, radioInput, location) => {
 const SearchButton = ({ searchRadio, searchInput }) => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
+  const meals = useSelector((state) => state.api.data.meals);
+  const drinks = useSelector((state) => state.api.data.drinks);
+  if (meals && meals.length === 1) {
+    history.push(`/comidas/${meals[0].idMeal}`);
+  }
+  if (drinks && drinks.length === 1) {
+    history.push(`/bebidas/${drinks[0].idDrink}`);
+  }
+  if (meals === null || drinks === null) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
 
   return (
     <button
-      type="submit"
-      onClick={(event) => {
-        event.preventDefault();
+      type="button"
+      onClick={() => {
         if (searchRadio === 'f' && searchInput.length > 1) {
           return alert('Sua busca deve conter somente 1 (um) caracter');
         }
