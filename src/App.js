@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 // import './App.css';
 import LoginScreen from './pages/LoginScreen';
 import MealsScreen from './pages/MealsScreen';
-// import DetailsScreen from './pages/DetailsScreen/DetailsScreen';
 import MealDetailScreen from './pages/MealDetailScreen';
 import CocktailDetailScreen from './pages/CocktailDetailScreen';
 import Header from './components/Header/Header';
@@ -17,10 +16,6 @@ function App() {
           <Route exact path="/" component={LoginScreen} />
           <Route exact path="/comidas" component={MealsScreen} />
           <Route exact path="/bebidas" />
-          {
-            // <Route exact path="/comidas/:id" component={DetailsScreen} />
-            // <Route exact path="/bebidas/:id" component={DetailsScreen} />
-          }
           <Route exact path="/comidas/:id" component={MealDetailScreen} />
           <Route exact path="/bebidas/:id" component={CocktailDetailScreen} />
           <Route path="/comidas/:id/in-progress" />
