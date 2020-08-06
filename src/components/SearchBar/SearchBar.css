@@ -1,0 +1,13 @@
+.search {
+  align-content: center;
+  align-items: center;
+  background: lightgray;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 58px;
+  justify-content: space-around;
+  position: absolute;
+  top: 58;
+  width: 100%;
+}

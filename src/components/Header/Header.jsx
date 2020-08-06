@@ -9,21 +9,22 @@ const Header = () => {
   const foodRoute = useRouteMatch('/comidas/:id/');
   const drinkRoute = useRouteMatch('/bebidas/:id/');
   const styling = { display: 'flex' };
+  const [barStatus, toogleSearch] = useState(false);
+
   if (
     location.pathname === '/' || foodRoute !== null || drinkRoute !== null
-  ) styling.display = 'none';
-  const [barStatus, toogleSearch] = useState(false);
+  ) return <div />;
 
   return (
     <React.Fragment>
       <div className="header" style={styling}>
         <Link to="/perfil">
-          <div className="ico_user" />
+          <div className="ico_user" data-testid="profile-top-btn" />
         </Link>
-        <p>Comidas</p>
-        <button type="button" className="ico_search" onClick={() => toogleSearch(!barStatus)} aria-label="search" />
+        <p data-testid="page-title">Comidas</p>
+        <button type="button" className="ico_search" data-testid="search-top-btn" onClick={() => toogleSearch(!barStatus)} aria-label="search" />
       </div>
-      <SearchBar searchClass={barStatus ? 'search-off search-on' : 'search-off'} />
+      {barStatus ? <SearchBar /> : null}
     </React.Fragment>
   );
 };
