@@ -20,14 +20,12 @@ button {
 }
 
 .ico_user {
-  background: url('../../images/profileIcon.svg');
   height: 30px;
   margin: 0 15px;
   width: 30px;
 }
 
 .ico_search {
-  background: url('../../images/searchIcon.svg');
   cursor: pointer;
   height: 30px;
   margin: 0 15px;
