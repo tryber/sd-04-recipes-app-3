@@ -9,33 +9,35 @@ const SearchBar = (props) => {
   const [searchRadio, setSearchRadio] = useState('');
   const { searchClass } = props;
   return (
-    <form className={searchClass}>
-      <SearchInput searchInput={searchInput} setSearchInput={setSearchInput} />
-      <div className="radio-btns">
-        <SearchRadio
-          id="ingredient"
-          value="i"
-          searchRadio={searchRadio}
-          setSearchRadio={setSearchRadio}
-          label="Ingrediente"
-        />
-        <SearchRadio
-          id="name"
-          value="s"
-          searchRadio={searchRadio}
-          setSearchRadio={setSearchRadio}
-          label="Nome"
-        />
-        <SearchRadio
-          id="first-letter"
-          value="f"
-          searchRadio={searchRadio}
-          setSearchRadio={setSearchRadio}
-          label="Primeira letra"
-        />
-      </div>
-      <SearchBtn searchInput={searchInput} searchRadio={searchRadio} />
-    </form>
+    <div className={searchClass}>
+      <form >
+        <SearchInput searchInput={searchInput} setSearchInput={setSearchInput} />
+        <div className="radio-btns" >
+          <SearchRadio
+            id="ingredient"
+            value="i"
+            searchRadio={searchRadio}
+            setSearchRadio={setSearchRadio}
+            label="Ingrediente"
+          />
+          <SearchRadio
+            id="name"
+            value="s"
+            searchRadio={searchRadio}
+            setSearchRadio={setSearchRadio}
+            label="Nome"
+          />
+          <SearchRadio
+            id="first-letter"
+            value="f"
+            searchRadio={searchRadio}
+            setSearchRadio={setSearchRadio}
+            label="Primeira letra"
+          />
+        </div>
+        <SearchBtn searchInput={searchInput} searchRadio={searchRadio} />
+      </form>
+    </div>
   );
 };
 
