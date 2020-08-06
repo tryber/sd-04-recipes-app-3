@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation, useRouteMatch, Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
+import searchIcon from '../../images/searchIcon.svg';
+import profileIcon from '../../images/profileIcon.svg';
 
 import './Header.css';
 
@@ -32,8 +34,8 @@ const Header = () => {
       }
     }
     return (
-      <button type="button" className="ico_search" onClick={() => toogleSearch(!barStatus)}>
-        <img data-testid="search-top-btn" src="../../images/searchIcon.svg" alt="profile icon" />
+      <button type="button" className="ico-search-btn" onClick={() => toogleSearch(!barStatus)}>
+        <img data-testid="search-top-btn" src={searchIcon} alt="profile icon" className="ico-search" />
       </button>
     );
   };
@@ -47,7 +49,7 @@ const Header = () => {
       <div className="header" style={styling}>
         <Link to="/perfil">
           <div className="ico_user">
-            <img data-testid="profile-top-btn" src="../../images/profileIcon.svg" alt="profile icon" />
+            <img data-testid="profile-top-btn" src={profileIcon} alt="profile icon" />
           </div>
         </Link>
         <p data-testid="page-title">{getTitle()}</p>

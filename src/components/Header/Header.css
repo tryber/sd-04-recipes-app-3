@@ -25,9 +25,13 @@ button {
   width: 30px;
 }
 
-.ico_search {
+.ico-search {
   cursor: pointer;
   height: 30px;
   margin: 0 15px;
   width: 30px;
+}
+
+.ico-search-btn {
+  background: lightgray;
 }
