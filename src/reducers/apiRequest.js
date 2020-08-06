@@ -1,6 +1,6 @@
 import * as actionType from '../actions/actionsType';
 
-const initialState = { loading: true, data: [], error: '' };
+const INITIAL_STATE = { loading: true, data: [], error: '' };
 
 const apiRequest = (state = INITIAL_STATE, action) => {
   switch (action.type) {
