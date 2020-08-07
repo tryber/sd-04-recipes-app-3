@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import SearchInput from './SearchInput';
 import SearchBtn from './SearchBtn';
 import SearchRadio from './SearchRadio';
-import './SearchBar.css';
+import '../../css/SearchBar.css';
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState('');
