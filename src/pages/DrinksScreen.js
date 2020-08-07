@@ -5,19 +5,29 @@ import { fetchMeals } from '../actions/apiRequest';
 import { ItemCard, CategotyFilter, Header, Footer } from '../components';
 import '../css/mainScreen.css';
 
-
 const DrinksScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
   useEffect(() => {
-    fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-  }, []);
-  const meals = data.filter(({ strCategory }) => ['All', strCategory].includes(filterCategory));
+    fetchMealsProps(
+      'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
+    );
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const meals = data.filter(({ strCategory }) =>
+    ['All', strCategory].includes(filterCategory),
+  );
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
+      {CategotyFilter(
+        'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
+        setFilterCategory,
+      )}
       <div className="meals-container " data-ride="carousel">
-        {meals.slice(0, 12).map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
+        {meals
+          .slice(0, 12)
+          .map(({ strDrink, strDrinkThumb, idDrink }) =>
+            ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`),
+          )}
       </div>
       <Footer />
     </div>

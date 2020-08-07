@@ -5,19 +5,27 @@ import { fetchMeals } from '../actions/apiRequest';
 import { ItemCard, CategotyFilter, Header, Footer } from '../components';
 import '../css/mainScreen.css';
 
-
 const MealsScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
   useEffect(() => {
     fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-  }, []);
-  const meals = data.filter(({ strCategory }) => ['All', strCategory].includes(filterCategory));
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const meals = data.filter(({ strCategory }) =>
+    ['All', strCategory].includes(filterCategory),
+  );
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
-      <div className="meals-container " >
-        {meals.slice(0, 12).map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+      {CategotyFilter(
+        'https://www.themealdb.com/api/json/v1/1/list.php?c=list',
+        setFilterCategory,
+      )}
+      <div className="meals-container ">
+        {meals
+          .slice(0, 12)
+          .map(({ strMeal, strMealThumb, idMeal }) =>
+            ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`),
+          )}
       </div>
       <Footer />
     </div>

@@ -9,22 +9,25 @@ const CategotyFilter = (url, setFilterCategory) => {
       return setCategory(reponse);
     };
     request();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   console.log(Object.values(category));
   if (category.length === 0) return <div>Loading...</div>;
   return (
     <div>
-      <button value="All" onClick={(e) => setFilterCategory(e.target.value)}>All</button>
-      {Object.values(category)[0].slice(0, 5).map(({ strCategory }) =>
-        <button
-          key={strCategory}
-          value={strCategory}
-          onClick={(e) => setFilterCategory(e.target.value)}
-        >
-          {strCategory}
-        </button>,
-      )
-      }
+      <button value="All" onClick={(e) => setFilterCategory(e.target.value)}>
+        All
+      </button>
+      {Object.values(category)[0]
+        .slice(0, 5)
+        .map(({ strCategory }) => (
+          <button
+            key={strCategory}
+            value={strCategory}
+            onClick={(e) => setFilterCategory(e.target.value)}
+          >
+            {strCategory}
+          </button>
+        ))}
     </div>
   );
 };
