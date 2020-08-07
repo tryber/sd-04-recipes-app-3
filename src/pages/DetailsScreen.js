@@ -4,6 +4,8 @@ import { useLocation } from 'react-router-dom';
 import { fetchMeals } from '../actions/apiRequest';
 import IngredientsList from '../components/DetailsScreen/IngredientsList';
 import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
+import FavoriteBtn from '../components/DetailsScreen/FavoriteBtn';
+import ShareBtn from '../components/DetailsScreen/ShareBtn';
 
 // Get the desired object key from the recipe and returns an array
 const recipeKeysToArray = (recipe, key) =>
@@ -42,7 +44,6 @@ const returnEndpoint = (location) => {
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
   const recipeData = useSelector((state) => state.api.data);
   const loading = useSelector((state) => state.api.loading);
 
@@ -53,8 +54,6 @@ const DetailsScreen = () => {
   if (loading) return <h1>Loading...</h1>;
 
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  console.log(window.location);
-  console.log(recipeData);
   const recipe = recipeData[0];
 
   return (
@@ -70,6 +69,8 @@ const DetailsScreen = () => {
       <h3 data-testid="recipe-category">
         {isFood ? recipe.strCategory : recipe.strAlcoholic}
       </h3>
+      <ShareBtn />
+      <FavoriteBtn />
       <IngredientsList ingredients={getIngredients} recipe={recipe} />
       <div>
         <h2>Instruções</h2>
