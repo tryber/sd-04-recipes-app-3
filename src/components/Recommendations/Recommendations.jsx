@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './Recommendations.css';
+import '../../css/Recommendations.css';
 
 const Recommendations = ({ sixRecs }) => {
   const location = useLocation();
