@@ -18,8 +18,7 @@ const checkData = (data, history, location) => {
   let id = 0;
   if (Object.keys(data).includes('meals')) {
     if (data.meals.length === 1) id = data.meals[0].idMeal;
-    else if (data.drinks.length === 1) id = data.drinks[0].idDrink;
-  }
+  } else if (data.drinks.length === 1) id = data.drinks[0].idDrink;
   return history.push(`${location.pathname}/${id}`);
 };
 const checkNull = (data, dispatch, history, location) => {
