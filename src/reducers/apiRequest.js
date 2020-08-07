@@ -21,6 +21,12 @@ const apiRequest = (state = INITIAL_STATE, action) => {
         loading: false,
         error: action.payload,
       };
+    case actionType.CLEAN_DATA_STATE:
+      return {
+        ...state,
+        loading: null,
+        data: {},
+      };
     default:
       return state;
   }

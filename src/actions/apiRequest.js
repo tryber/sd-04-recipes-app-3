@@ -21,3 +21,7 @@ export const fetchMeals = (url) => (dispatch) => {
     .then((json) => dispatch(fetchMealsSuccess(json)))
     .catch((error) => dispatch(fetchMealsFailure(error)));
 };
+
+export const cleanDataState = () => ({
+  type: actionType.CLEAN_DATA_STATE,
+});
