@@ -5,9 +5,9 @@
   box-sizing: border-box;
   display: flex;
   flex-flow: column;
-  padding: 5px;
   height: 120px;
   justify-content: space-around;
+  padding: 5px;
   position: absolute;
   top: 70px;
   width: 100%;

@@ -1,8 +1,8 @@
 footer {
   background-color: gray;
   bottom: 0;
-  height: 60px;
   display: flex;
+  height: 60px;
   justify-content: space-around;
   padding-bottom: 10px;
   padding-top: 10px;
