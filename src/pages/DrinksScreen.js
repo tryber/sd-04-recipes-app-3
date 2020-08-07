@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import ItemCard from '../components/ItemCard';
 import { fetchMeals } from '../actions/apiRequest';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
+import { ItemCard, CategotyFilter, Header, Footer } from '../components';
 import '../css/mainScreen.css';
 
+
 const DrinksScreen = ({ data, fetchMealsProps }) => {
-  console.log(data);
+  const [filterCategory, setFilterCategory] = useState('All');
   useEffect(() => {
     fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   }, []);
+  const meals = data.filter(({ strCategory }) => ['All', strCategory].includes(filterCategory));
   return (
     <div className="main-page">
       <Header />
+      {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
       <div className="meals-container " data-ride="carousel">
-        {data.map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
+        {meals.slice(0, 12).map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
       </div>
       <Footer />
     </div>
@@ -24,7 +25,7 @@ const DrinksScreen = ({ data, fetchMealsProps }) => {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.apiRequest.data,
+  data: state.api.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({

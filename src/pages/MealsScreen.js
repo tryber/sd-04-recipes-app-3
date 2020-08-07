@@ -1,22 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import '../css/mainScreen.css';
-import ItemCard from '../components/ItemCard';
 import { fetchMeals } from '../actions/apiRequest';
-import Header from '../components/Header/Header';
-import Footer from '../components/Footer/Footer';
+import { ItemCard, CategotyFilter, Header, Footer } from '../components';
+import '../css/mainScreen.css';
+
 
 const MealsScreen = ({ data, fetchMealsProps }) => {
-  console.log(data);
+  const [filterCategory, setFilterCategory] = useState('All');
   useEffect(() => {
     fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   }, []);
+  const meals = data.filter(({ strCategory }) => ['All', strCategory].includes(filterCategory));
   return (
     <div className="main-page">
       <Header />
+      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
       <div className="meals-container " >
-        {data.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+        {meals.slice(0, 12).map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
       </div>
       <Footer />
     </div>
@@ -24,7 +25,7 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.apiRequest.data,
+  data: state.api.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
