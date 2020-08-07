@@ -13,7 +13,7 @@ const apiRequest = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        data: Object.values(action.payload)[0].slice(0, 12),
+        data: Object.values(action.payload)[0],
       };
     case actionType.FETCH_MEALS_FAILURE:
       return {
