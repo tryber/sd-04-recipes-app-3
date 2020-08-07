@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { fetchMeals } from '../../actions/apiRequest';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useHistory } from 'react-router-dom';
+import { fetchMeals, cleanDataState } from '../../actions/apiRequest';
 
 const returnEndpoint = (searchInput, radioInput, location) => {
   const endpointCheck = radioInput === 'i' ? 'filter' : 'search';
@@ -14,15 +14,36 @@ const returnEndpoint = (searchInput, radioInput, location) => {
   return undefined;
 };
 
+const checkData = (data, history, location) => {
+  let id = 0;
+  if (Object.keys(data).includes('meals')) {
+    if (data.meals.length === 1) id = data.meals[0].idMeal;
+  } else if (data.drinks.length === 1) id = data.drinks[0].idDrink;
+  return history.push(`${location.pathname}/${id}`);
+};
+const checkNull = (data, dispatch, history, location) => {
+  if (Object.values(data).includes(null)) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    dispatch(cleanDataState());
+    return null;
+  }
+  if (Object.keys(data).length !== 0) {
+    checkData(data, history, location);
+  }
+  return null;
+};
+
 const SearchButton = ({ searchRadio, searchInput }) => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
+  const data = useSelector((state) => state.api.data);
+  checkNull(data, dispatch, history, location);
 
   return (
     <button
-      type="submit"
-      onClick={(event) => {
-        event.preventDefault();
+      type="button"
+      onClick={() => {
         if (searchRadio === 'f' && searchInput.length > 1) {
           return alert('Sua busca deve conter somente 1 (um) caracter');
         }

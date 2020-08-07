@@ -1,6 +1,6 @@
 import * as actionType from '../actions/actionsType';
 
-const initialState = { loading: true, data: [], error: '' };
+const initialState = { loading: null, data: {}, error: '' };
 
 const apiRequest = (state = initialState, action) => {
   switch (action.type) {
@@ -21,6 +21,12 @@ const apiRequest = (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case actionType.CLEAN_DATA_STATE:
+      return {
+        ...state,
+        loading: null,
+        data: {},
       };
     default:
       return state;

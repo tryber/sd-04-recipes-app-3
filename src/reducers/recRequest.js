@@ -1,6 +1,6 @@
 import * as actionType from '../actions/actionsType';
 
-const initialState = { loading: null, data: [], error: '' };
+const initialState = { loading: null, data: {}, error: '' };
 
 const recRequest = (state = initialState, action) => {
   switch (action.type) {
