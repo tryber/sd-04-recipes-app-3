@@ -6,18 +6,18 @@ import { ItemCard, CategotyFilter, Header, Footer } from '../components';
 import '../css/mainScreen.css';
 
 
-const MealsScreen = ({ data, fetchMealsProps }) => {
+const DrinksScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
   useEffect(() => {
-    fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   }, []);
   const meals = data.filter(({ strCategory }) => ['All', strCategory].includes(filterCategory));
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
-      <div className="meals-container " >
-        {meals.slice(0, 12).map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+      {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
+      <div className="meals-container " data-ride="carousel">
+        {meals.slice(0, 12).map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
       </div>
       <Footer />
     </div>
@@ -32,9 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMealsProps: (e) => dispatch(fetchMeals(e)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MealsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DrinksScreen);
 
-MealsScreen.propTypes = {
+DrinksScreen.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchMealsProps: PropTypes.func.isRequired,
 };

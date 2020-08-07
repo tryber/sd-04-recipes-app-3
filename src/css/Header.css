@@ -4,15 +4,38 @@ button {
 
 .header {
   align-items: center;
-  background: lightgray;
+  background: gray;
   box-sizing: border-box;
   display: flex;
-  height: 58px;
+  height: 70px;
   justify-content: space-between;
   width: 100%;
 }
 
+/* .search-off {
+  display: none;
+}
+
+.search-on {
+  align-content: center;
+  align-items: center;
+  background: lightgray;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+  justify-content: space-around;
+  position: absolute;
+  top: 70px;
+  width: 100%;
+} */
+
+.show-bar {
+  margin-bottom: 120px;
+}
+
 .header > p {
+  color: black;
   font-size: 35px;
   margin-top: 30px;
   text-align: center;
@@ -33,5 +56,5 @@ button {
 }
 
 .ico-search-btn {
-  background: lightgray;
+  background: gray;
 }
