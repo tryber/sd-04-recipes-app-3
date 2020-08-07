@@ -31,6 +31,7 @@ const checkNull = (data, dispatch, history, location) => {
   if (Object.keys(data).length !== 0) {
     checkData(data, history, location);
   }
+  return null;
 };
 
 const SearchButton = ({ searchRadio, searchInput }) => {
