@@ -19,6 +19,7 @@ const CategotyFilter = (url, setFilterCategory) => {
         <button
           key={strCategory}
           value={strCategory}
+          data-testid={`${strCategory}-category-filter`}
           onClick={(e) => setFilterCategory(e.target.value)}
         >
           {strCategory}
