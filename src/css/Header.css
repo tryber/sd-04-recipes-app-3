@@ -4,7 +4,8 @@ button {
 
 .header {
   align-items: center;
-  background: gray;
+  background: rgb(181,150,71);
+  background: linear-gradient(180deg, rgba(181,150,71,1) 0%, rgba(255,8,0,1) 100%, rgba(163,29,15,1) 100%);
   box-sizing: border-box;
   display: flex;
   height: 70px;
@@ -56,5 +57,5 @@ button {
 }
 
 .ico-search-btn {
-  background: gray;
+  background: transparent;
 }
