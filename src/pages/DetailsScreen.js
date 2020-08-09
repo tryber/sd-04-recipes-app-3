@@ -4,7 +4,19 @@ import { useLocation } from 'react-router-dom';
 import { fetchMeals } from '../actions/apiRequest';
 import IngredientsList from '../components/DetailsScreen/IngredientsList';
 import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
+import { Recommendations } from '../components';
+import { fetchRec } from '../actions/recRequest';
 
+
+// Função q separa as 6 primeiras recomendações caso os dados da requisição
+// inicial já tenham sido armazenados na store
+const getSixRecs = (drinks, sixRecs) => {
+  for (let i = 0; i < drinks.length; i += 1) {
+    if (i > 5) break;
+    sixRecs.push(drinks[i]);
+  }
+  console.log(sixRecs);
+};
 // Get the desired object key from the recipe and returns an array
 const recipeKeysToArray = (recipe, key) =>
   Object.keys(recipe)
@@ -32,31 +44,35 @@ const getRouteInfo = (location) => {
 };
 
 // Returns a string with the correct endpoint based on the URL main route
-const returnEndpoint = (location) => {
+const returnEndpoint = (location, operator) => {
   const routeDetails = getRouteInfo(location);
-  return routeDetails.mainRoute === 'comidas'
-    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`
-    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
+  if (operator === 'search') routeDetails.recipeId = '';
+  return (routeDetails.mainRoute === 'comidas')
+    ? `https://www.themealdb.com/api/json/v1/1/${operator}.php?i=${routeDetails.recipeId}`
+    : `https://www.thecocktaildb.com/api/json/v1/1/${operator}.php?i=${routeDetails.recipeId}`;
 };
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
   const recipeData = useSelector((state) => state.api.data);
   const loading = useSelector((state) => state.api.loading);
+  const load = useSelector((state) => state.recommendations.loading);
+  const drinks = useSelector((state) => state.recommendations.data.drinks);
+  const sixRecs = [];
+  if (drinks !== undefined) getSixRecs(drinks, sixRecs);
 
   useEffect(() => {
-    dispatch(fetchMeals(returnEndpoint(location)));
+    dispatch(fetchMeals(returnEndpoint(location, 'lookup')));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    dispatch(fetchRec(returnEndpoint(location, 'search')));
+  }, []);
 
   if (loading) return <h1>Loading...</h1>;
 
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  console.log(window.location);
-  console.log(recipeData);
-  const recipe = recipeData[0];
-
+  const recipe = Object.values(recipeData)[0][0];
   return (
     <div>
       <img
@@ -77,7 +93,7 @@ const DetailsScreen = () => {
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
       <div>
-        <h2>Recomendadas</h2>
+        {load === null ? 'Loading...' : <Recommendations sixRecs={sixRecs} />}
       </div>
     </div>
   );
