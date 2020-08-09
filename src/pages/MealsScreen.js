@@ -8,16 +8,28 @@ import '../css/mainScreen.css';
 
 const MealsScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
+  let meals;
+  if (data.length === 0) {
+    meals = data;
+  } else {
+    meals = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
+  }
   useEffect(() => {
-    fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-  }, []);
-  const meals = data.filter(({ strCategory }) => ['All', strCategory].includes(filterCategory));
+    if (filterCategory === 'All') {
+      fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    } else {
+      fetchMealsProps(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
+    }
+  }, [filterCategory]);
+  // if (filterCategory !== 'All' && data.length === 0) {
+  //   return (<div>Sinto muito, não encontramos nenhuma receita para esses filtros.</div>);
+  // }
   return (
     <div className="main-page">
       <Header />
       {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
       <div className="meals-container " >
-        {meals.slice(0, 12).map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+        {meals.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
       </div>
       <Footer />
     </div>
