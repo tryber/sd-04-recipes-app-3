@@ -13,7 +13,7 @@ const apiRequest = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        data: Object.values(action.payload)[0],
+        data: action.payload,
       };
     case actionType.FETCH_MEALS_FAILURE:
       return {
@@ -25,7 +25,7 @@ const apiRequest = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: null,
-        data: {},
+        data: [],
       };
     default:
       return state;
