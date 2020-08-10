@@ -53,7 +53,7 @@ const returnEndpoint = (location) => {
     : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
 };
 
-// Função criada para diminuir complexidade cognitiva
+// ===== Funções criadas para diminuir complexidade cognitiva =====
 const fetchs = (dispatch, location) => {
   dispatch(fetchMeals(returnEndpoint(location)));
 
@@ -65,7 +65,6 @@ const fetchs = (dispatch, location) => {
   }
 };
 
-// Função criada para diminuir complexidade cognitiva
 const getData = (selector, rec) =>
   ({
     recipeData: selector((state) => state.api.data),
@@ -85,6 +84,7 @@ const recipeInfos = (isFood, recipe) =>
       {isFood ? recipe.strMeal : recipe.strDrink}
     </h1>
   </div>;
+// ===== Fim =====
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
@@ -109,15 +109,7 @@ const DetailsScreen = () => {
   const recipe = Object.values(store.recipeData)[0][0];
   return (
     <div>
-      {/* <img
-        src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
-        alt="Recipe food"
-        data-testid="recipe-photo"
-      /> */}
       {recipeInfos(isFood, recipe)}
-      {/* <h1 data-testid="recipe-title">
-        {isFood ? recipe.strMeal : recipe.strDrink}
-      </h1> */}
       <h3 data-testid="recipe-category">
         {isFood ? recipe.strCategory : recipe.strAlcoholic}
       </h3>
