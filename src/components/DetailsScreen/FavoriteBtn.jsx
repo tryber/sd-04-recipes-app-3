@@ -38,12 +38,16 @@ const FavoriteBtn = () => {
   const favoriteItem = createFavoriteItem(recipeData[0], location);
 
   return (
-    <button type="button" data-testid="favorite-btn" onClick={() => { setFavorite(!favorite); setLocalFavorite(favoriteItem); }}>
-      <img
-        src={favorite ? favoriteIconBlack : favoriteIconWhite}
-        alt="Favorite button"
-      />
-    </button>
+    <input
+      type="image"
+      src={favorite ? favoriteIconBlack : favoriteIconWhite}
+      alt="Favorite button"
+      onClick={() => {
+        setFavorite(!favorite);
+        setLocalFavorite(favoriteItem);
+      }}
+      data-testid="favorite-btn"
+    />
   );
 };
 
