@@ -16,7 +16,8 @@ const createFavoriteItem = (data, id, isFood) => ({
 });
 
 const checkFavorite = (id) => {
-  const currentFavorites = localStorage.getItem('favoriteRecipes');
+  let currentFavorites = localStorage.getItem('favoriteRecipes');
+  currentFavorites = JSON.parse(currentFavorites);
   if (currentFavorites) {
     return currentFavorites.some((item) => item.id === id);
   }
@@ -55,7 +56,7 @@ const FavoriteBtn = () => {
       alt="Favorite button"
       onClick={() => {
         setFavorite(!favorite);
-        setLocalFavorite(favoriteItem);
+        setLocalFavorite(favoriteItem, id);
       }}
       data-testid="favorite-btn"
     />
