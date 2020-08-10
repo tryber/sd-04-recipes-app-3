@@ -6,13 +6,13 @@ import IngredientsList from '../components/DetailsScreen/IngredientsList';
 import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
 import FavoriteBtn from '../components/DetailsScreen/FavoriteBtn';
 import ShareBtn from '../components/DetailsScreen/ShareBtn';
+import { getRouteInfo } from '../helpers';
 
 // Get the desired object key from the recipe and returns an array
-const recipeKeysToArray = (recipe, key) =>
-  Object.keys(recipe)
-    .filter((item) => item.startsWith(key))
-    .map((item) => recipe[item])
-    .filter((item) => item !== '' && item !== null);
+const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
+  .filter((item) => item.startsWith(key))
+  .map((item) => recipe[item])
+  .filter((item) => item !== '' && item !== null);
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
@@ -23,14 +23,6 @@ const getIngredients = (recipe) => {
     ingredient: item,
     measure: measuresKeys[index],
   }));
-};
-
-// Returns in an object the main route (comidas or bebidas) and the recipe ID
-const getRouteInfo = (location) => {
-  const routeInfoArr = location.pathname
-    .split('/')
-    .filter((item) => item !== '');
-  return { mainRoute: routeInfoArr[0], recipeId: routeInfoArr[1] };
 };
 
 // Returns a string with the correct endpoint based on the URL main route
