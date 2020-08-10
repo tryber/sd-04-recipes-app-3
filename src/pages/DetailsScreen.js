@@ -96,14 +96,14 @@ const DetailsScreen = () => {
     fetchs(dispatch, location);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // if (store.loading) return <h1>Loading...</h1>;
+  if (store.loading) return <h1>Loading...</h1>;
 
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  // const recipe = Object.values(store.recipeData)[0][0];
-  return (store.loading ? <h1>Loading...</h1> :
+  const recipee = Object.values(store.recipeData)[0][0];
+  return (
     <div>
       <img
-        src={isFood ? recipe(store.recipeData).strMealThumb : recipe(store.recipeData).strDrinkThumb}
+        src={isFood ? recipee.strMealThumb : recipe(store.recipeData).strDrinkThumb}
         alt="Recipe food"
         data-testid="recipe-photo"
       />
