@@ -29,7 +29,7 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
       <Header />
       {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
       <div className="meals-container " >
-        {meals.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+        {meals.map(({ strMeal, strMealThumb, idMeal }, index) => ItemCard(strMeal, strMealThumb, index, `/comidas/${idMeal}`))}
       </div>
       <Footer />
     </div>
