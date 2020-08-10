@@ -9,8 +9,7 @@ import { fetchRec } from '../actions/recRequest';
 
 // Função q separa as 6 primeiras recomendações caso os dados da requisição
 // inicial já tenham sido armazenados na store
-const getSixRecs = (recs) => {
-  const sixRecs = [];
+const getSixRecs = (recs, sixRecs) => {
   for (let i = 0; i < recs.length; i += 1) {
     if (i > 5) break;
     sixRecs.push(recs[i]);
@@ -90,8 +89,9 @@ const DetailsScreen = () => {
   const location = useLocation();
   const rec = location.pathname.startsWith('/comidas') ? 'Drink' : 'Meal';
   const store = getData(useSelector, rec);
+  const sixRecs = [];
 
-  if (store.recs !== undefined) getSixRecs(store.recs);
+  if (store.recs !== undefined) getSixRecs(store.recs, sixRecs);
 
   useEffect(() => {
     fetchs(dispatch, location);
@@ -115,7 +115,7 @@ const DetailsScreen = () => {
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
       <div>
         {store.load === null ?
-          'Loading...' : <Recommendations sixRecs={getSixRecs(store.recs)} rec={rec} />
+          'Loading...' : <Recommendations sixRecs={sixRecs} rec={rec} />
         }
       </div>
     </div>
