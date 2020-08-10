@@ -9,11 +9,13 @@ import { fetchRec } from '../actions/recRequest';
 
 // Função q separa as 6 primeiras recomendações caso os dados da requisição
 // inicial já tenham sido armazenados na store
-const getSixRecs = (recs, sixRecs) => {
+const getSixRecs = (recs) => {
+  const sixRecs = [];
   for (let i = 0; i < recs.length; i += 1) {
     if (i > 5) break;
     sixRecs.push(recs[i]);
   }
+  return sixRecs;
 };
 
 // Get the desired object key from the recipe and returns an array
@@ -63,7 +65,8 @@ const fetchs = (dispatch, location) => {
   }
 };
 
-const dataStore = (selector, rec) =>
+// Função criada para diminuir complexidade cognitiva
+const getData = (selector, rec) =>
   ({
     recipeData: selector((state) => state.api.data),
     loading: selector((state) => state.api.loading),
@@ -79,10 +82,10 @@ const DetailsScreen = () => {
   // const load = useSelector((state) => state.recommendations.loading);
   const rec = location.pathname.startsWith('/comidas') ? 'Drink' : 'Meal';
   // const recs = useSelector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]);
-  const store = dataStore(useSelector, rec);
-  const sixRecs = [];
+  const store = getData(useSelector, rec);
 
-  if (store.recs !== undefined) getSixRecs(store.recs, sixRecs);
+
+  // if (store.recs !== undefined) getSixRecs(store.recs);
 
   useEffect(() => {
     fetchs(dispatch, location);
@@ -112,7 +115,9 @@ const DetailsScreen = () => {
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
       <div>
-        {store.load === null ? 'Loading...' : <Recommendations sixRecs={sixRecs} rec={rec} />}
+        {store.load === null ?
+          'Loading...' : <Recommendations sixRecs={getSixRecs(store.recs)} rec={rec} />
+        }
       </div>
     </div>
   );
