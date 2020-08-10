@@ -1,6 +1,5 @@
 .footer {
-  background: rgb(255,8,0);
-  background: linear-gradient(180deg, rgba(255,8,0,1) 0%, rgba(181,150,71,1) 100%, rgba(163,29,15,1) 100%);  
+  background: linear-gradient(180deg, rgba(181, 150, 71, 1) 0%, rgba(255, 8, 0, 1) 100%, rgba(163, 29, 15, 1) 100%);
   bottom: 0;
   display: flex;
   height: 60px;

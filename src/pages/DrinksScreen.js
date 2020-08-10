@@ -6,17 +6,17 @@ import { ItemCard, CategotyFilter, Header, Footer } from '../components';
 import '../css/mainScreen.css';
 
 const newData = (data) => {
-  let meals = [];
+  let drinks = [];
   if (data.length !== 0) {
-    meals = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
+    drinks = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
   }
-  return meals;
+  return drinks;
 };
 
 const DrinksScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
-  let meals = [];
-  meals = newData(data);
+  let drinks = [];
+  drinks = newData(data);
   useEffect(() => {
     if (filterCategory === 'All') {
       fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
@@ -32,7 +32,7 @@ const DrinksScreen = ({ data, fetchMealsProps }) => {
       <Header />
       {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
       <div className="meals-container " data-ride="carousel">
-        {meals.map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
+        {drinks.map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
       </div>
       <Footer />
     </div>
