@@ -17,7 +17,7 @@ const Recommendations = ({ sixRecs, rec }) => {
               <img src={oRec[strRecThumb]} alt="Recomendações" />
               <p>{oRec.strCategory}</p>
               <p data-testid={`${index}-recomendation-title`} className="title">{oRec[strRec]}</p>
-            </div>
+            </div>,
           )}
         </div>
       </div>

@@ -51,23 +51,28 @@ const returnEndpoint = (location) => {
     : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
 };
 
+const fetchs = (dispatch, location, urlIsMeal) => {
+  dispatch(fetchMeals(returnEndpoint(location)));
+  (urlIsMeal
+    ? dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='))
+    : dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s=')));
+}
+
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const recipeData = useSelector((state) => state.api.data);
   const loading = useSelector((state) => state.api.loading);
   const load = useSelector((state) => state.recommendations.loading);
-  const rec = location.pathname.startsWith('/comidas') ? 'Drink' : 'Meal';
+  const urlIsMeal = location.pathname.startsWith('/comidas');
+  const rec = urlIsMeal ? 'Drink' : 'Meal';
   const recs = useSelector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]);
   const sixRecs = [];
 
   if (recs !== undefined) getSixRecs(recs, sixRecs);
 
   useEffect(() => {
-    dispatch(fetchMeals(returnEndpoint(location)));
-    (location.pathname.startsWith('/comidas')
-      ? dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='))
-      : dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s=')))
+    fetchs(dispatch, location, urlIsMeal)
   }, [dispatch, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) return <h1>Loading...</h1>;
