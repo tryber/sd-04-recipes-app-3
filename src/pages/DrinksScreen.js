@@ -7,27 +7,21 @@ import '../css/mainScreen.css';
 
 const DrinksScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
+  let drinks = [];
+  drinks = newData(data);
   useEffect(() => {
-    fetchMealsProps(
-      'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=',
-    );
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const meals = data.filter(({ strCategory }) =>
-    ['All', strCategory].includes(filterCategory),
-  );
+    if (filterCategory === 'All') {
+      fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    } else {
+      fetchMealsProps(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
+    }
+  }, [filterCategory]);
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter(
-        'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list',
-        setFilterCategory,
-      )}
+      {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory, filterCategory)}
       <div className="meals-container " data-ride="carousel">
-        {meals
-          .slice(0, 12)
-          .map(({ strDrink, strDrinkThumb, idDrink }) =>
-            ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`),
-          )}
+        {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => ItemCard(strDrink, strDrinkThumb, index, `/bebidas/${idDrink}`))}
       </div>
       <Footer />
     </div>

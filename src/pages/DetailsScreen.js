@@ -2,12 +2,20 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchMeals } from '../actions/apiRequest';
-import IngredientsList from '../components/DetailsScreen/IngredientsList';
-import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
-import FavoriteBtn from '../components/DetailsScreen/FavoriteBtn';
-import ShareBtn from '../components/DetailsScreen/ShareBtn';
+import { IngredientsList, EmbeddedVideo, Footer, FavoriteBtn, ShareBtn, Recommendations } from '../components';
+import { fetchRec } from '../actions/recRequest';
+import { returnEndpoint } from '../services/requestAPI';
 import { getRouteInfo } from '../helpers';
 
+
+// Função q separa as 6 primeiras recomendações caso os dados da requisição
+// inicial já tenham sido armazenados na store
+const getSixRecs = (drinks, sixRecs) => {
+  for (let i = 0; i < drinks.length; i += 1) {
+    if (i > 5) break;
+    sixRecs.push(drinks[i]);
+  }
+};
 // Get the desired object key from the recipe and returns an array
 const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
   .filter((item) => item.startsWith(key))
@@ -25,43 +33,34 @@ const getIngredients = (recipe) => {
   }));
 };
 
-// Returns a string with the correct endpoint based on the URL main route
-const returnEndpoint = (location) => {
-  const routeDetails = getRouteInfo(location);
-  return routeDetails.mainRoute === 'comidas'
-    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`
-    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
-};
+const mealsData = (isFood, recipe) =>
+  <div>
+    <img
+      src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
+      alt="Recipe food"
+      data-testid="recipe-photo"
+    />
+    <h1 data-testid="recipe-title">{isFood ? recipe.strMeal : recipe.strDrink}</h1>
+    <h3 data-testid="recipe-category">{isFood ? recipe.strCategory : recipe.strAlcoholic}</h3>
+  </div>;
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const recipeData = useSelector((state) => state.api.data);
-  const loading = useSelector((state) => state.api.loading);
-
+  const isFood = location.pathname.startsWith('/comidas');
+  const state = useSelector((states) => states);
+  const sixRecs = [];
+  if (state.recommendations.data.drinks) getSixRecs(state.recommendations.data.drinks, sixRecs);
   useEffect(() => {
-    dispatch(fetchMeals(returnEndpoint(location)));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  if (loading) return <h1>Loading...</h1>;
-
-  const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  const recipe = recipeData[0];
-
+    dispatch(fetchMeals(returnEndpoint(location, 'lookup', isFood)));
+    dispatch(fetchRec(returnEndpoint(location, 'search', isFood)));
+  }, []);
+  if (state.api.loading) return <h1>Loading...</h1>;
+  const recipe = Object.values(state.api.data)[0][0];
   return (
     <div>
-      <img
-        src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
-        alt="Recipe food"
-        data-testid="recipe-photo"
-      />
-      <h1 data-testid="recipe-title">
-        {isFood ? recipe.strMeal : recipe.strDrink}
-      </h1>
-      <h3 data-testid="recipe-category">
-        {isFood ? recipe.strCategory : recipe.strAlcoholic}
-      </h3>
-      <ShareBtn />
+      {mealsData(isFood, recipe)}
+       <ShareBtn />
       <FavoriteBtn />
       <IngredientsList ingredients={getIngredients} recipe={recipe} />
       <div>
@@ -69,9 +68,8 @@ const DetailsScreen = () => {
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
-      <div>
-        <h2>Recomendadas</h2>
-      </div>
+      <div>{state.recommendations.loading ? 'Loading...' : <Recommendations sixRecs={sixRecs} />}</div>
+      <Footer />
     </div>
   );
 };
