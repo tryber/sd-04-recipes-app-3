@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchMeals } from '../actions/apiRequest';
-import IngredientsList from '../components/DetailsScreen/IngredientsList';
-import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
+import { IngredientsList, EmbeddedVideo, Footer } from '../components';
 import { Recommendations } from '../components';
 import { fetchRec } from '../actions/recRequest';
 import { returnEndpoint } from '../services/requestAPI';
@@ -69,6 +68,7 @@ const DetailsScreen = () => {
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
       <div>{state.recommendations.loading ? 'Loading...' : <Recommendations sixRecs={sixRecs} />}</div>
+      <Footer />
     </div>
   );
 };
