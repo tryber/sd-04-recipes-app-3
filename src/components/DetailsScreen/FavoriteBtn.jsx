@@ -17,7 +17,10 @@ const createFavoriteItem = (data, id, isFood) => ({
 
 const checkFavorite = (id) => {
   const currentFavorites = localStorage.getItem('favoriteRecipes');
-  return currentFavorites.some((item) => item.id === id);
+  if (currentFavorites) {
+    return currentFavorites.some((item) => item.id === id);
+  }
+  return false;
 };
 
 const setLocalFavorite = (favoriteItem, id) => {
