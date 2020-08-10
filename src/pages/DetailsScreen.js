@@ -74,12 +74,17 @@ const getData = (selector, rec) =>
     recs: selector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]),
   });
 
-const recipeIMG = (isFood, recipe) =>
-  <img
-    src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
-    alt="Recipe food"
-    data-testid="recipe-photo"
-  />;
+const recipeInfos = (isFood, recipe) =>
+  <div>
+    <img
+      src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
+      alt="Recipe food"
+      data-testid="recipe-photo"
+    />
+    <h1 data-testid="recipe-title">
+      {isFood ? recipe.strMeal : recipe.strDrink}
+    </h1>
+  </div>;
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
@@ -109,10 +114,10 @@ const DetailsScreen = () => {
         alt="Recipe food"
         data-testid="recipe-photo"
       /> */}
-      {recipeIMG(isFood, recipe)}
-      <h1 data-testid="recipe-title">
+      {recipeInfos(isFood, recipe)}
+      {/* <h1 data-testid="recipe-title">
         {isFood ? recipe.strMeal : recipe.strDrink}
-      </h1>
+      </h1> */}
       <h3 data-testid="recipe-category">
         {isFood ? recipe.strCategory : recipe.strAlcoholic}
       </h3>
