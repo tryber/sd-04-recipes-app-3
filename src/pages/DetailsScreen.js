@@ -11,9 +11,11 @@ import { fetchRec } from '../actions/recRequest';
 // inicial já tenham sido armazenados na store
 const getSixRecs = (recs) => {
   const sixRecs = [];
-  for (let i = 0; i < recs.length; i += 1) {
-    if (i > 5) break;
-    sixRecs.push(recs[i]);
+  if (recs !== undefined) {
+    for (let i = 0; i < recs.length; i += 1) {
+      if (i > 5) break;
+      sixRecs.push(recs[i]);
+    }
   }
   return sixRecs;
 };
@@ -74,6 +76,9 @@ const getData = (selector, rec) =>
     recs: selector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]),
   });
 
+const recipe = (recipeData) =>
+  Object.values(recipeData)[0][0];
+
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -91,29 +96,29 @@ const DetailsScreen = () => {
     fetchs(dispatch, location);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (store.loading) return <h1>Loading...</h1>;
+  // if (store.loading) return <h1>Loading...</h1>;
 
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  const recipe = Object.values(store.recipeData)[0][0];
-  return (
+  // const recipe = Object.values(store.recipeData)[0][0];
+  return (store.loading ? <h1>Loading...</h1> :
     <div>
       <img
-        src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
+        src={isFood ? recipe(store.recipeData).strMealThumb : recipe(store.recipeData).strDrinkThumb}
         alt="Recipe food"
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">
-        {isFood ? recipe.strMeal : recipe.strDrink}
+        {isFood ? recipe(store.recipeData).strMeal : recipe(store.recipeData).strDrink}
       </h1>
       <h3 data-testid="recipe-category">
-        {isFood ? recipe.strCategory : recipe.strAlcoholic}
+        {isFood ? recipe(store.recipeData).strCategory : recipe(store.recipeData).strAlcoholic}
       </h3>
-      <IngredientsList ingredients={getIngredients} recipe={recipe} />
+      <IngredientsList ingredients={getIngredients} recipe={recipe(store.recipeData)} />
       <div>
         <h2>Instruções</h2>
-        <p data-testid="instructions">{recipe.strInstructions}</p>
+        <p data-testid="instructions">{recipe(store.recipeData).strInstructions}</p>
       </div>
-      <EmbeddedVideo isFood={isFood} recipe={recipe} />
+      <EmbeddedVideo isFood={isFood} recipe={recipe(store.recipeData)} />
       <div>
         {store.load === null ?
           'Loading...' : <Recommendations sixRecs={getSixRecs(store.recs)} rec={rec} />
