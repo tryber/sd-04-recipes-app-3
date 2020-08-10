@@ -17,7 +17,6 @@ const createFavoriteItem = (data, id, isFood) => ({
 
 const checkFavorite = (id) => {
   const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  console.log(currentFavorites);
   if (currentFavorites) {
     return currentFavorites.some((item) => item.id === id);
   }
@@ -47,8 +46,6 @@ const FavoriteBtn = () => {
   const id = getRouteInfo(location).recipeId;
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
   const favoriteItem = createFavoriteItem(recipeData[0], id, isFood);
-
-  console.log(favoriteItem);
 
   useEffect(() => {
     setFavorite(checkFavorite(id));
