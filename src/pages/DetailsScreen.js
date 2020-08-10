@@ -108,7 +108,7 @@ const DetailsScreen = () => {
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">
-        {isFood ? recipe(store.recipeData).strMeal : recipe(store.recipeData).strDrink}
+        {isFood ? recipee.strMeal : recipe(store.recipeData).strDrink}
       </h1>
       <h3 data-testid="recipe-category">
         {isFood ? recipe(store.recipeData).strCategory : recipe(store.recipeData).strAlcoholic}
