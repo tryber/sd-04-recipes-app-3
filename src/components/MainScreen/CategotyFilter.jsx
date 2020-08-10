@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { requestAPI } from '../../services/requestAPI';
 
-const CategotyFilter = (url, setFilterCategory) => {
+const CategotyFilter = (url, setFilterCategory, filterCategory) => {
   const [category, setCategory] = useState([]);
   useEffect(() => {
     const request = async () => {
@@ -26,7 +26,11 @@ const CategotyFilter = (url, setFilterCategory) => {
           key={strCategory}
           value={strCategory}
           data-testid={`${strCategory}-category-filter`}
-          onClick={(e) => setFilterCategory(e.target.value)}
+          onClick={(e) => {
+            const value = e.target.value;
+            if (filterCategory === value) return setFilterCategory('All');
+            return setFilterCategory(value);
+          }}
         >
           {strCategory}
         </button>,
