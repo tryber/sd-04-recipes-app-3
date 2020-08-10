@@ -51,38 +51,47 @@ const returnEndpoint = (location) => {
     : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
 };
 
+// Função criada para diminuir complexidade cognitiva
 const fetchs = (dispatch, location) => {
-  const urlIsMeal = location.pathname.startsWith('/comidas');
-
   dispatch(fetchMeals(returnEndpoint(location)));
 
-  if (urlIsMeal) {
+  // Fetch para recomendações
+  if (location.pathname.startsWith('/comidas')) {
     dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
   } else {
     dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='));
   }
 };
 
+const dataStore = (selector, rec) =>
+  ({
+    recipeData: selector((state) => state.api.data),
+    loading: selector((state) => state.api.loading),
+    load: selector((state) => state.recommendations.loading),
+    recs: selector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]),
+  });
+
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const recipeData = useSelector((state) => state.api.data);
-  const loading = useSelector((state) => state.api.loading);
-  const load = useSelector((state) => state.recommendations.loading);
+  // const recipeData = useSelector((state) => state.api.data);
+  // const loading = useSelector((state) => state.api.loading);
+  // const load = useSelector((state) => state.recommendations.loading);
   const rec = location.pathname.startsWith('/comidas') ? 'Drink' : 'Meal';
-  const recs = useSelector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]);
+  // const recs = useSelector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]);
+  const store = dataStore(useSelector, rec);
   const sixRecs = [];
 
-  if (recs !== undefined) getSixRecs(recs, sixRecs);
+  if (store.recs !== undefined) getSixRecs(store.recs, sixRecs);
 
   useEffect(() => {
     fetchs(dispatch, location);
-  }, [dispatch, location]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (loading) return <h1>Loading...</h1>;
+  if (store.loading) return <h1>Loading...</h1>;
 
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  const recipe = Object.values(recipeData)[0][0];
+  const recipe = Object.values(store.recipeData)[0][0];
   return (
     <div>
       <img
@@ -103,7 +112,7 @@ const DetailsScreen = () => {
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
       <div>
-        {load === null ? 'Loading...' : <Recommendations sixRecs={sixRecs} rec={rec} />}
+        {store.load === null ? 'Loading...' : <Recommendations sixRecs={sixRecs} rec={rec} />}
       </div>
     </div>
   );
