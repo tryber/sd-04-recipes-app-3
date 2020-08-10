@@ -14,7 +14,13 @@ const CategotyFilter = (url, setFilterCategory) => {
   if (category.length === 0) return <div>Loading...</div>;
   return (
     <div>
-      <button value="All" onClick={(e) => setFilterCategory(e.target.value)}>All</button>
+      <button
+        value="All"
+        onClick={(e) => setFilterCategory(e.target.value)}
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {Object.values(category)[0].slice(0, 5).map(({ strCategory }) =>
         <button
           key={strCategory}
