@@ -5,19 +5,23 @@ import { fetchMeals } from '../actions/apiRequest';
 import { ItemCard, CategotyFilter, Header, Footer } from '../components';
 import '../css/mainScreen.css';
 
-const MealsScreen = ({ data, fetchMealsProps }) => {
-  const [filterCategory, setFilterCategory] = useState('All');
-  let meals;
-  if (data.length === 0) {
-    meals = data;
-  } else {
+const newData = (data) => {
+  let meals = [];
+  if (data.length !== 0) {
     meals = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
   }
+  return meals;
+};
+
+const DrinksScreen = ({ data, fetchMealsProps }) => {
+  const [filterCategory, setFilterCategory] = useState('All');
+  let meals = [];
+  meals = newData(data);
   useEffect(() => {
     if (filterCategory === 'All') {
-      fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     } else {
-      fetchMealsProps(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
+      fetchMealsProps(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
     }
   }, [filterCategory, fetchMealsProps]);
   // if (filterCategory !== 'All' && data.length === 0) {
@@ -26,9 +30,9 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
-      <div className="meals-container " >
-        {meals.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+      {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
+      <div className="meals-container " data-ride="carousel">
+        {meals.map(({ strDrink, strDrinkThumb, idDrink }) => ItemCard(strDrink, strDrinkThumb, idDrink, `/bebidas/${idDrink}`))}
       </div>
       <Footer />
     </div>
@@ -43,9 +47,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMealsProps: (e) => dispatch(fetchMeals(e)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MealsScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(DrinksScreen);
 
-MealsScreen.propTypes = {
+DrinksScreen.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchMealsProps: PropTypes.func.isRequired,
 };

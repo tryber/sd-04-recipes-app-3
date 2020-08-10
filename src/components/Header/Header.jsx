@@ -3,8 +3,7 @@ import { useLocation, useRouteMatch, Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
-
-import './Header.css';
+import '../../css/Header.css';
 
 const renderSearchBtn = (location, toggleSearch, barStatus, getTitle) => {
   const title = getTitle(location);
@@ -41,16 +40,18 @@ const Header = () => {
   ) return <div />;
   return (
     <React.Fragment>
-      <div className="header">
-        <Link to="/perfil">
-          <div className="ico_user">
-            <img data-testid="profile-top-btn" src={profileIcon} alt="profile icon" />
-          </div>
-        </Link>
-        <p data-testid="page-title">{getTitle(location)}</p>
-        {renderSearchBtn(location, toggleSearch, barStatus, getTitle)}
+      <div className={barStatus ? 'show-bar' : ''}>
+        <div className="header" >
+          <Link to="/perfil">
+            <div className="ico_user">
+              <img data-testid="profile-top-btn" src={profileIcon} alt="profile icon" />
+            </div>
+          </Link>
+          <p data-testid="page-title">{getTitle(location)}</p>
+          {renderSearchBtn(location, toggleSearch, barStatus, getTitle)}
+        </div>
+        {barStatus ? <SearchBar /> : null}
       </div>
-      {barStatus ? <SearchBar /> : null}
     </React.Fragment>
   );
 };

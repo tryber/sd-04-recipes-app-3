@@ -8,6 +8,7 @@ const SearchInput = ({ searchInput, setSearchInput }) => (
     value={searchInput}
     onChange={(event) => setSearchInput(event.target.value)}
     data-testid="search-input"
+    className="form-control"
   />
 );
 

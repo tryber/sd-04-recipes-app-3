@@ -1,32 +1,24 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './Recommendations.css';
+import '../../css/Recommendations.css';
 
-const Recommendations = ({ sixRecs }) => {
-  const location = useLocation();
+const Recommendations = ({ sixRecs, rec }) => {
+  const idRec = `id${rec}`;
+  const strRecThumb = `str${rec}Thumb`;
+  const strRec = `str${rec}`;
 
   return (
     <div>
       <h1>Recomendadas</h1>
       <div className="carousel">
         <div className="content">
-          {location.pathname.startsWith('/comidas')
-
-            ? sixRecs.map((rec, index) =>
-              <div className="rec" key={rec.idDrink} data-testid={`${index}-recomendation-card`}>
-                <img src={rec.strDrinkThumb} alt="Recomendações" />
-                <p>{rec.strAlcoholic}</p>
-                <p data-testid={`${index}-recomendation-title`} className="title">{rec.strDrink}</p>
-              </div>)
-
-            : sixRecs.map((rec, index) =>
-              <div className="rec" key={rec.idMeal} data-testid={`${index}-recomendation-card`}>
-                <img src={rec.strMealThumb} alt="Recomendações" />
-                <p>{rec.strCategory}</p>
-                <p data-testid={`${index}-recomendation-title`} className="title">{rec.strMeal}</p>
-              </div>)
-          }
+          {sixRecs.map((oRec, index) =>
+            <div className="rec" key={oRec[idRec]} data-testid={`${index}-recomendation-card`}>
+              <img src={oRec[strRecThumb]} alt="Recomendações" />
+              <p>{oRec.strCategory}</p>
+              <p data-testid={`${index}-recomendation-title`} className="title">{oRec[strRec]}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -35,6 +27,7 @@ const Recommendations = ({ sixRecs }) => {
 
 Recommendations.propTypes = {
   sixRecs: PropTypes.arrayOf(PropTypes.object).isRequired,
+  rec: PropTypes.string.isRequired,
 };
 
 export default Recommendations;
