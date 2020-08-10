@@ -53,10 +53,12 @@ const returnEndpoint = (location) => {
 
 const fetchs = (dispatch, location, urlIsMeal) => {
   dispatch(fetchMeals(returnEndpoint(location)));
-  (urlIsMeal
-    ? dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='))
-    : dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s=')));
-}
+  if (urlIsMeal) {
+    dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='))
+  } else {
+    dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='));
+  }
+};
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
@@ -72,7 +74,7 @@ const DetailsScreen = () => {
   if (recs !== undefined) getSixRecs(recs, sixRecs);
 
   useEffect(() => {
-    fetchs(dispatch, location, urlIsMeal)
+    fetchs(dispatch, location, urlIsMeal);
   }, [dispatch, location]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (loading) return <h1>Loading...</h1>;
