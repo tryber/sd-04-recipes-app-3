@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import requestAPI from '../../services/requestAPI';
+import { requestAPI } from '../../services/requestAPI';
 
 const CategotyFilter = (url, setFilterCategory) => {
   const [category, setCategory] = useState([]);

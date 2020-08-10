@@ -6,6 +6,7 @@ import IngredientsList from '../components/DetailsScreen/IngredientsList';
 import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
 import { Recommendations } from '../components';
 import { fetchRec } from '../actions/recRequest';
+import { returnEndpoint } from '../services/requestAPI';
 
 
 // Função q separa as 6 primeiras recomendações caso os dados da requisição
@@ -34,21 +35,6 @@ const getIngredients = (recipe) => {
   }));
 };
 
-// Returns in an object the main route (comidas or bebidas) and the recipe ID
-const getRouteInfo = (location) => {
-  const routeInfoArr = location.pathname
-    .split('/')
-    .filter((item) => item !== '');
-  return { mainRoute: routeInfoArr[0], recipeId: routeInfoArr[1] };
-};
-
-// Returns a string with the correct endpoint based on the URL main route
-const returnEndpoint = (location) => {
-  const routeDetails = getRouteInfo(location);
-  return (routeDetails.mainRoute === 'comidas')
-    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`
-    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
-};
 const mealsData = (isFood, recipe) =>
   <div>
     <img
@@ -63,15 +49,15 @@ const mealsData = (isFood, recipe) =>
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const isFood = location.pathname.startsWith('/comidas');
   const state = useSelector((states) => states);
   const sixRecs = [];
   if (state.recommendations.data.drinks) getSixRecs(state.recommendations.data.drinks, sixRecs);
   useEffect(() => {
-    dispatch(fetchMeals(returnEndpoint(location, 'lookup')));
-    dispatch(fetchRec(returnEndpoint(location, 'search')));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    dispatch(fetchMeals(returnEndpoint(location, 'lookup', isFood)));
+    dispatch(fetchRec(returnEndpoint(location, 'search', isFood)));
+  }, []);
   if (state.api.loading) return <h1>Loading...</h1>;
-  const isFood = getRouteInfo(location).mainRoute === 'comidas';
   const recipe = Object.values(state.api.data)[0][0];
   return (
     <div>
