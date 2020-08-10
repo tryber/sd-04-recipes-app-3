@@ -15,11 +15,17 @@ const returnEndpoint = (searchInput, radioInput, location) => {
 };
 
 const checkData = (data, history, location) => {
-  let id = 0;
+  let id = '';
   if (Object.keys(data).includes('meals')) {
-    if (data.meals.length === 1) id = data.meals[0].idMeal;
-  } else if (data.drinks.length === 1) id = data.drinks[0].idDrink;
-  return history.push(`${location.pathname}/${id}`);
+    if (data.meals.length === 1) {
+      id = data.meals[0].idMeal;
+      return history.push(`${location.pathname}/${id}`);
+    }
+  } else if (data.drinks.length === 1) {
+    id = data.drinks[0].idDrink;
+    return history.push(`${location.pathname}/${id}`);
+  }
+  return null;
 };
 const checkNull = (data, dispatch, history, location) => {
   if (Object.values(data).includes(null)) {

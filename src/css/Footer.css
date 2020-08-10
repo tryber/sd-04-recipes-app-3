@@ -1,5 +1,5 @@
-footer {
-  background-color: gray;
+.footer {
+  background: linear-gradient(rgba(181, 150, 71, 1), red 100%, rgba(163, 29, 15, 1));
   bottom: 0;
   display: flex;
   height: 60px;

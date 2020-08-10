@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import requestAPI from '../../services/requestAPI';
+import { requestAPI } from '../../services/requestAPI';
 
-const CategotyFilter = (url, setFilterCategory) => {
+const CategotyFilter = (url, setFilterCategory, filterCategory) => {
   const [category, setCategory] = useState([]);
   useEffect(() => {
     const request = async () => {
@@ -14,12 +14,23 @@ const CategotyFilter = (url, setFilterCategory) => {
   if (category.length === 0) return <div>Loading...</div>;
   return (
     <div>
-      <button value="All" onClick={(e) => setFilterCategory(e.target.value)}>All</button>
+      <button
+        value="All"
+        onClick={(e) => setFilterCategory(e.target.value)}
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       {Object.values(category)[0].slice(0, 5).map(({ strCategory }) =>
         <button
           key={strCategory}
           value={strCategory}
-          onClick={(e) => setFilterCategory(e.target.value)}
+          data-testid={`${strCategory}-category-filter`}
+          onClick={(e) => {
+            const value = e.target.value;
+            if (filterCategory === value) return setFilterCategory('All');
+            return setFilterCategory(value);
+          }}
         >
           {strCategory}
         </button>,

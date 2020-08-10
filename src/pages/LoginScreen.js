@@ -27,8 +27,9 @@ const LoginScreen = () => {
         onSubmit={(e) => {
           e.preventDefault();
           const emailValue = document.getElementById('email-input').value;
-          if (!validateEmail(emailValue)) {
-            alert('Digite um email valido!');
+          const passValue = document.getElementById('password-input').value;
+          if (!validateEmail(emailValue) && passValue.length > 6) {
+            alert('Digite um email/senha valido!');
             return false;
           }
           setLS('mealsToken', 1);
@@ -40,7 +41,7 @@ const LoginScreen = () => {
           const emailValue = document.getElementById('email-input').value;
           const passValue = document.getElementById('password-input').value;
           const submitButton = document.getElementById('login-submit-btn');
-          if (passValue && validateEmail(emailValue)) {
+          if (validateEmail(emailValue) && passValue.length > 6) {
             submitButton.disabled = false;
           } else {
             submitButton.disabled = true;

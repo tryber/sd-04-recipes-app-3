@@ -8,16 +8,25 @@ import '../css/mainScreen.css';
 
 const MealsScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
+  let meals;
+  if (data.length === 0) {
+    meals = data;
+  } else {
+    meals = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
+  }
   useEffect(() => {
-    fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-  }, []);
-  const meals = data.filter(({ strCategory }) => ['All', strCategory].includes(filterCategory));
+    if (filterCategory === 'All') {
+      fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    } else {
+      fetchMealsProps(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
+    }
+  }, [filterCategory]);
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
+      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory, filterCategory)}
       <div className="meals-container " >
-        {meals.slice(0, 12).map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+        {meals.map(({ strMeal, strMealThumb, idMeal }, index) => ItemCard(strMeal, strMealThumb, index, `/comidas/${idMeal}`))}
       </div>
       <Footer />
     </div>
