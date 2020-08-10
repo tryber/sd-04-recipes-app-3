@@ -47,7 +47,6 @@ const getRouteInfo = (location) => {
 // Returns a string with the correct endpoint based on the URL main route
 const returnEndpoint = (location) => {
   const routeDetails = getRouteInfo(location);
-  // if (operator === 'search') routeDetails.recipeId = '';
   return routeDetails.mainRoute === 'comidas'
     ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`
     : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${routeDetails.recipeId}`;
@@ -89,13 +88,8 @@ const recipeInfos = (isFood, recipe) =>
 const DetailsScreen = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  // const recipeData = useSelector((state) => state.api.data);
-  // const loading = useSelector((state) => state.api.loading);
-  // const load = useSelector((state) => state.recommendations.loading);
   const rec = location.pathname.startsWith('/comidas') ? 'Drink' : 'Meal';
-  // const recs = useSelector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]);
   const store = getData(useSelector, rec);
-
 
   if (store.recs !== undefined) getSixRecs(store.recs);
 
