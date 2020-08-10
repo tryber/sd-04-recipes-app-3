@@ -19,12 +19,11 @@ const checkData = (data, history, location) => {
   if (Object.keys(data).includes('meals')) {
     if (data.meals.length === 1) {
       id = data.meals[0].idMeal;
-      return history.push(`${location.pathname}${id}`);
+      return history.push(`${location.pathname}/${id}`);
     }
-  }
-  if (data.drinks.length === 1) {
+  } else if (data.drinks.length === 1) {
     id = data.drinks[0].idDrink;
-    return history.push(`${location.pathname}${id}`);
+    return history.push(`${location.pathname}/${id}`);
   }
   return null;
 };
