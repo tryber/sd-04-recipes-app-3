@@ -11,11 +11,9 @@ import { fetchRec } from '../actions/recRequest';
 // inicial já tenham sido armazenados na store
 const getSixRecs = (recs) => {
   const sixRecs = [];
-  if (recs !== undefined) {
-    for (let i = 0; i < recs.length; i += 1) {
-      if (i > 5) break;
-      sixRecs.push(recs[i]);
-    }
+  for (let i = 0; i < recs.length; i += 1) {
+    if (i > 5) break;
+    sixRecs.push(recs[i]);
   }
   return sixRecs;
 };
@@ -76,8 +74,12 @@ const getData = (selector, rec) =>
     recs: selector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]),
   });
 
-// const recipe = (recipeData) =>
-//   Object.values(recipeData)[0][0]
+const recipeIMG = (isFood, recipe) =>
+  <img
+    src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
+    alt="Recipe food"
+    data-testid="recipe-photo"
+  />;
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
@@ -90,7 +92,7 @@ const DetailsScreen = () => {
   const store = getData(useSelector, rec);
 
 
-  // if (store.recs !== undefined) getSixRecs(store.recs);
+  if (store.recs !== undefined) getSixRecs(store.recs);
 
   useEffect(() => {
     fetchs(dispatch, location);
@@ -102,11 +104,12 @@ const DetailsScreen = () => {
   const recipe = Object.values(store.recipeData)[0][0];
   return (
     <div>
-      <img
+      {/* <img
         src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
         alt="Recipe food"
         data-testid="recipe-photo"
-      />
+      /> */}
+      {recipeIMG(isFood, recipe)}
       <h1 data-testid="recipe-title">
         {isFood ? recipe.strMeal : recipe.strDrink}
       </h1>
@@ -119,11 +122,11 @@ const DetailsScreen = () => {
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
-      {/* <div>
+      <div>
         {store.load === null ?
           'Loading...' : <Recommendations sixRecs={getSixRecs(store.recs)} rec={rec} />
         }
-      </div> */}
+      </div>
     </div>
   );
 };
