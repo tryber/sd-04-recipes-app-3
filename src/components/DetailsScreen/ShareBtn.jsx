@@ -23,7 +23,7 @@ const ShareBtn = () => {
 
   return (
     <React.Fragment>
-      <button type="button" onClick={handleShare}>
+      <button type="button" data-testid="share-btn" onClick={handleShare}>
         <img src={shareIcon} alt="Share button" />
       </button>
       {shareTimer > 0 && shareTimer < 5 ? (
