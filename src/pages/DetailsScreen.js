@@ -1,11 +1,27 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { fetchMeals } from '../actions/apiRequest';
 import IngredientsList from '../components/DetailsScreen/IngredientsList';
 import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
 import { Recommendations } from '../components';
 import { fetchRec } from '../actions/recRequest';
+import { setLS, getLS } from '../helpers';
+import '../css/DetailsScreen.css';
+
+// Função IIFE - Immediately Invoked Function Expression
+(() => {
+  const aDoneRecipes = [{
+    id: 0, type: '', area: '', category: '', alcoholicOrNot: '',
+    name: '', image: '', doneDate: '', tags: []
+  }];
+  const oInProgressRecipes = {
+    cocktails: {178319: []},
+    meals: {52771: []},
+  }
+  setLS('doneRecipes', aDoneRecipes);
+  return setLS('inProgressRecipes', oInProgressRecipes);
+})();
 
 // Função q separa as 6 primeiras recomendações caso os dados da requisição
 // inicial já tenham sido armazenados na store
@@ -84,7 +100,39 @@ const recipeInfos = (isFood, recipe) =>
   </div>;
 // ===== Fim =====
 
-const DetailsScreen = () => {
+const redirect = (history, location) =>
+  history.push(`${location.pathname}/in-progress`);
+
+const checkProgress = (page, idPage) =>
+  Object.keys(getLS('inProgressRecipes')[page])
+    .map((idProgress) => idProgress === idPage)
+    .includes(true);
+
+const showBtnState = (idPage, rec) => {
+  const page = (`${rec.toLowerCase()}s` === 'meals' ? 'cocktails' : 'meals');
+  if (document.getElementById('btn-state') !== null) {
+    const btn = document.getElementById('btn-state');
+    const idDone = getLS('doneRecipes')[0].id;
+    if (idDone === +(idPage)) {
+      btn.style.display = 'none';
+      return true;
+    } else if (checkProgress(page, idPage)) {
+      btn.style.display = 'initial';
+      btn.textContent = 'Continuar Receita';
+      return true;
+    } else {
+      btn.style.display = 'initial';
+      btn.textContent = 'Iniciar Receita';
+      return true;
+    }
+  }
+};
+
+// console.log(typeof idDone, typeof +(idPage), idDone === +(idPage))
+      // console.log('if 1')
+
+const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   const rec = location.pathname.startsWith('/comidas') ? 'Drink' : 'Meal';
@@ -118,6 +166,9 @@ const DetailsScreen = () => {
           'Loading...' : <Recommendations sixRecs={sixRecs} rec={rec} />
         }
       </div>
+      <button id="btn-state" className="btn-state" data-testid="start-recipe-btn"
+        onClick={() => redirect(history, location)} />
+      {showBtnState(idPage, rec)}
     </div>
   );
 };

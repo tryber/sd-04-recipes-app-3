@@ -1,0 +1,7 @@
+.btn-state {
+  bottom: 0;
+  background-color: green;
+  color: white;
+  font-size: 30px;
+  position: fixed;
+}
