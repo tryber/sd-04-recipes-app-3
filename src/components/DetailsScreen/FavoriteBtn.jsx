@@ -45,8 +45,7 @@ const FavoriteBtn = () => {
   const recipeData = useSelector((state) => state.api.data);
   const id = getRouteInfo(location).recipeId;
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
-  const favoriteItem = createFavoriteItem(Object.values(recipeData), id, isFood);
-
+  const favoriteItem = createFavoriteItem(Object.values(recipeData)[0][0], id, isFood);
   useEffect(() => {
     setFavorite(checkFavorite(id));
   }, []);
