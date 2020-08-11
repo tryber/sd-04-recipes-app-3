@@ -12,37 +12,37 @@ const Recommendations = ({ sixRecs }) => {
         <div className="content">
           {location.pathname.startsWith('/comidas')
             ? sixRecs.map((rec, index) => (
-                <div
-                  className="rec"
-                  key={rec.idDrink + 1}
-                  data-testid={`${index}-recomendation-card`}
+              <div
+                className="rec"
+                key={rec.idDrink + 1}
+                data-testid={`${index}-recomendation-card`}
+              >
+                <img src={rec.strMealThumb} alt="Recomendações" />
+                <p>{rec.strCategory}</p>
+                <p
+                  data-testid={`${index}-recomendation-title`}
+                  className="title"
                 >
-                  <img src={rec.strMealThumb} alt="Recomendações" />
-                  <p>{rec.strCategory}</p>
-                  <p
-                    data-testid={`${index}-recomendation-title`}
-                    className="title"
-                  >
-                    {rec.strDrink}
-                  </p>
-                </div>
-              ))
+                  {rec.strDrink}
+                </p>
+              </div>
+            ))
             : sixRecs.map((rec, index) => (
-                <div
-                  className="rec"
-                  key={rec.idMeal + 1}
-                  data-testid={`${index}-recomendation-card`}
+              <div
+                className="rec"
+                key={rec.idMeal + 1}
+                data-testid={`${index}-recomendation-card`}
+              >
+                <img src={rec.strDrinkThumb} alt="Recomendações" />
+                <p>{rec.strCategory}</p>
+                <p
+                  data-testid={`${index}-recomendation-title`}
+                  className="title"
                 >
-                  <img src={rec.strDrinkThumb} alt="Recomendações" />
-                  <p>{rec.strCategory}</p>
-                  <p
-                    data-testid={`${index}-recomendation-title`}
-                    className="title"
-                  >
-                    {rec.strMeal}
-                  </p>
-                </div>
-              ))}
+                  {rec.strMeal}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
     </div>
