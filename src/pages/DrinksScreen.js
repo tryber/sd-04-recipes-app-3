@@ -2,21 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
-import { ItemCard, CategotyFilter, Header, Footer } from '../components';
+import {
+  ItemCard, CategotyFilter, Header, Footer,
+} from '../components';
 import '../css/mainScreen.css';
-
-const newData = (data) => {
-  let drinks = [];
-  if (data.length !== 0) {
-    drinks = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
-  }
-  return drinks;
-};
 
 const DrinksScreen = ({ data, fetchMealsProps }) => {
   const [filterCategory, setFilterCategory] = useState('All');
   let drinks = [];
-  drinks = newData(data);
+  if (data.length !== 0) {
+    drinks = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
+  }
+
   useEffect(() => {
     if (filterCategory === 'All') {
       fetchMealsProps('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');

@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchMeals } from '../actions/apiRequest';
-import { IngredientsList, EmbeddedVideo, Footer } from '../components';
-import { Recommendations } from '../components';
+import {
+  IngredientsList, EmbeddedVideo, Footer, FavoriteBtn, ShareBtn, Recommendations,
+} from '../components';
 import { fetchRec } from '../actions/recRequest';
 import { returnEndpoint } from '../services/requestAPI';
-
 
 // Função q separa as 6 primeiras recomendações caso os dados da requisição
 // inicial já tenham sido armazenados na store
@@ -17,11 +17,10 @@ const getSixRecs = (drinks, sixRecs) => {
   }
 };
 // Get the desired object key from the recipe and returns an array
-const recipeKeysToArray = (recipe, key) =>
-  Object.keys(recipe)
-    .filter((item) => item.startsWith(key))
-    .map((item) => recipe[item])
-    .filter((item) => item !== '' && item !== null);
+const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
+  .filter((item) => item.startsWith(key))
+  .map((item) => recipe[item])
+  .filter((item) => item !== '' && item !== null);
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
@@ -34,7 +33,7 @@ const getIngredients = (recipe) => {
   }));
 };
 
-const mealsData = (isFood, recipe) =>
+const mealsData = (isFood, recipe) => (
   <div>
     <img
       src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
@@ -43,7 +42,8 @@ const mealsData = (isFood, recipe) =>
     />
     <h1 data-testid="recipe-title">{isFood ? recipe.strMeal : recipe.strDrink}</h1>
     <h3 data-testid="recipe-category">{isFood ? recipe.strCategory : recipe.strAlcoholic}</h3>
-  </div>;
+  </div>
+);
 
 const DetailsScreen = () => {
   const dispatch = useDispatch();
@@ -61,6 +61,8 @@ const DetailsScreen = () => {
   return (
     <div>
       {mealsData(isFood, recipe)}
+      <ShareBtn />
+      <FavoriteBtn />
       <IngredientsList ingredients={getIngredients} recipe={recipe} />
       <div>
         <h2>Instruções</h2>

@@ -8,7 +8,7 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-const Input = (type, name) =>
+const Input = (type, name) => (
   <input
     id={`${type}-input`}
     data-testid={`${type}-input`}
@@ -16,8 +16,8 @@ const Input = (type, name) =>
     type={type}
     placeholder={name}
     className="form-control"
-  />;
-
+  />
+);
 
 const LoginScreen = () => {
   const history = useHistory();
@@ -59,7 +59,7 @@ const LoginScreen = () => {
           disabled
         >
           Login
-    </button>
+        </button>
       </form>
     </div>
   );
