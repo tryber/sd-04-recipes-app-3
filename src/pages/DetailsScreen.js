@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
 import IngredientsList from '../components/DetailsScreen/IngredientsList';
 import EmbeddedVideo from '../components/DetailsScreen/EmbeddedVideo';
@@ -12,13 +13,20 @@ import '../css/DetailsScreen.css';
 // Função IIFE - Immediately Invoked Function Expression
 (() => {
   const aDoneRecipes = [{
-    id: 0, type: '', area: '', category: '', alcoholicOrNot: '',
-    name: '', image: '', doneDate: '', tags: []
+    id: 0,
+    type: '',
+    area: '',
+    category: '',
+    alcoholicOrNot: '',
+    name: '',
+    image: '',
+    doneDate: '',
+    tags: [],
   }];
   const oInProgressRecipes = {
-    cocktails: {178319: []},
-    meals: {52771: []},
-  }
+    cocktails: { 178319: [] },
+    meals: { 52771: [] },
+  };
   setLS('doneRecipes', aDoneRecipes);
   return setLS('inProgressRecipes', oInProgressRecipes);
 })();
@@ -116,7 +124,8 @@ const showBtnState = (idPage, rec) => {
     if (idDone === +(idPage)) {
       btn.style.display = 'none';
       return true;
-    } else if (checkProgress(page, idPage)) {
+    }
+    if (checkProgress(page, idPage)) {
       btn.style.display = 'initial';
       btn.textContent = 'Continuar Receita';
       return true;
@@ -126,10 +135,11 @@ const showBtnState = (idPage, rec) => {
       return true;
     }
   }
+  return true;
 };
 
 // console.log(typeof idDone, typeof +(idPage), idDone === +(idPage))
-      // console.log('if 1')
+// console.log('if 1')
 
 const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
   const history = useHistory();
@@ -166,11 +176,17 @@ const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
           'Loading...' : <Recommendations sixRecs={sixRecs} rec={rec} />
         }
       </div>
-      <button id="btn-state" className="btn-state" data-testid="start-recipe-btn"
-        onClick={() => redirect(history, location)} />
+      <button
+        id="btn-state" className="btn-state" data-testid="start-recipe-btn"
+        onClick={() => redirect(history, location)}
+      />
       {showBtnState(idPage, rec)}
     </div>
   );
+};
+
+DetailsScreen.propTypes = {
+  match: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default DetailsScreen;
