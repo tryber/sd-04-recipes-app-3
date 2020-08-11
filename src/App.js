@@ -1,7 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { LoginScreen, MealsScreen, DrinksScreen, DetailsScreen } from './pages';
+import {
+  LoginScreen,
+  MealsScreen,
+  DrinksScreen,
+  DetailsScreen,
+  ProfileScreen,
+} from './pages';
 
 function App() {
   return (
@@ -21,7 +27,7 @@ function App() {
           <Route path="/explorar/comidas/ingredientes" />
           <Route path="/explorar/bebidas/ingredientes" />
           <Route path="/explorar/comidas/area" />
-          <Route path="/perfil" />
+          <Route path="/perfil" component={ProfileScreen} />
           <Route path="/receitas-feitas" />
           <Route path="/receitas-favoritas" />
           <Route exact path="*" />
