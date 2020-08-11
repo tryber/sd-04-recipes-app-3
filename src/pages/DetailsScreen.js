@@ -7,7 +7,6 @@ import {
 } from '../components';
 import { fetchRec } from '../actions/recRequest';
 import { returnEndpoint } from '../services/requestAPI';
-import { getRouteInfo } from '../helpers';
 
 // Função q separa as 6 primeiras recomendações caso os dados da requisição
 // inicial já tenham sido armazenados na store
