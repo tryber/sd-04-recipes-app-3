@@ -21,17 +21,12 @@ const DrinksScreen = ({ data, fetchMealsProps }) => {
       fetchMealsProps(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
     }
   }, [filterCategory, fetchMealsProps]);
-  // if (filterCategory !== 'All' && data.length === 0) {
-  //   return (<div>Sinto muito, não encontramos nenhuma receita para esses filtros.</div>);
-  // }
-  // }, [filterCategory]);
   return (
     <div className="main-page">
       <Header />
       {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory, filterCategory)}
       <div className="meals-container " data-ride="carousel">
-        {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) =>
-          ItemCard(strDrink, strDrinkThumb, index, `/bebidas/${idDrink}`))}
+        {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => ItemCard(strDrink, strDrinkThumb, index, `/bebidas/${idDrink}`))}
       </div>
       <Footer />
     </div>
@@ -50,6 +45,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(DrinksScreen);
 
 DrinksScreen.propTypes = {
   data: PropTypes.objectOf(PropTypes.array).isRequired,
-  // data: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchMealsProps: PropTypes.func.isRequired,
 };

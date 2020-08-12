@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useRouteMatch, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
@@ -32,16 +32,12 @@ const getTitle = (location) => {
 
 const Header = () => {
   const location = useLocation();
-  const foodRoute = useRouteMatch('/comidas/:id/');
-  const drinkRoute = useRouteMatch('/bebidas/:id/');
   const [barStatus, toggleSearch] = useState(false);
-  if (
-    location.pathname === '/' || foodRoute !== null || drinkRoute !== null
-  ) return <div />;
+
   return (
     <React.Fragment>
       <div className={barStatus ? 'show-bar' : ''}>
-        <div className="header" >
+        <div className="header">
           <Link to="/perfil">
             <div className="ico_user">
               <img data-testid="profile-top-btn" src={profileIcon} alt="profile icon" />
