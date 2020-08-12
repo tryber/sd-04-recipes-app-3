@@ -1,11 +1,11 @@
 .btn-state {
-  background-color: green;
+  background-color: red;
   border-radius: 5px;
   bottom: 0;
   color: white;
   font-size: 30px;
-  left: 26px;
+  left: 20px;
   margin-bottom: 15px;
   position: fixed;
-  width: 55%;
+  width: 320px;
 }

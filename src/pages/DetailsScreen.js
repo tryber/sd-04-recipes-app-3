@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
 import {
-  IngredientsList, EmbeddedVideo /* Footer */, FavoriteBtn, ShareBtn, Recommendations,
+  IngredientsList, EmbeddedVideo /* Footer */, FavoriteBtn, ShareBtn /* Recommendations */,
 } from '../components';
 import { fetchRec } from '../actions/recRequest';
-import { setLS, getLS } from '../helpers';
-import '../css/DetailsScreen.css';
+import { setLS } from '../helpers';
+import Recommendations from '../components/Recommendations/Recommendations';
+import StateRecipeBtn from '../components/DetailsScreen/StateRecipeBtn';
 // import { returnEndpoint } from '../services/requestAPI';
 
-// Função IIFE - Immediately Invoked Function Expression
-(() => {
+const keysLS = () => {
   const aDoneRecipes = [{
     id: 0,
     type: '',
@@ -30,7 +30,7 @@ import '../css/DetailsScreen.css';
   };
   setLS('doneRecipes', aDoneRecipes);
   return setLS('inProgressRecipes', oInProgressRecipes);
-})();
+};
 
 // Função q separa as 6 primeiras recomendações caso os dados da requisição
 // inicial já tenham sido armazenados na store
@@ -110,53 +110,10 @@ const getData = (selector, rec) =>
     load: selector((state) => state.recommendations.loading),
     recs: selector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]),
   });
-
-// const recipeInfos = (isFood, recipe) =>
-//   <div>
-//     <img
-//       src={isFood ? recipe.strMealThumb : recipe.strDrinkThumb}
-//       alt="Recipe food"
-//       data-testid="recipe-photo"
-//     />
-//     <h1 data-testid="recipe-title">
-//       {isFood ? recipe.strMeal : recipe.strDrink}
-//     </h1>
-//   </div>;
-
 // ===== Fim =====
 
-const redirect = (history, location) =>
-  history.push(`${location.pathname}/in-progress`);
-
-const checkProgress = (page, idPage) =>
-  Object.keys(getLS('inProgressRecipes')[page])
-    .map((idProgress) => idProgress === idPage)
-    .includes(true);
-
-const showBtnState = (idPage, rec) => {
-  const page = (`${rec.toLowerCase()}s` === 'meals' ? 'cocktails' : 'meals');
-  if (document.getElementById('btn-state') !== null) {
-    const btn = document.getElementById('btn-state');
-    const idDone = getLS('doneRecipes')[0].id;
-    if (idDone === +(idPage)) {
-      btn.style.display = 'none';
-      return true;
-    }
-    if (checkProgress(page, idPage)) {
-      btn.style.display = 'initial';
-      btn.textContent = 'Continuar Receita';
-      return true;
-    } else {
-      btn.style.display = 'initial';
-      btn.textContent = 'Iniciar Receita';
-      return true;
-    }
-  }
-  return true;
-};
-
 const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
-  const history = useHistory();
+  // const history = useHistory();
   const dispatch = useDispatch();
   const location = useLocation();
   // const isFood = location.pathname.startsWith('/comidas');
@@ -170,6 +127,7 @@ const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
 
   useEffect(() => {
     fetchs(dispatch, location);
+    keysLS();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // useEffect(() => {
   //   dispatch(fetchMeals(returnEndpoint(location, 'lookup', isFood)));
@@ -208,11 +166,7 @@ const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
           'Loading...' : <Recommendations sixRecs={sixRecs} />
         }
       </div> */}
-      <button
-        id="btn-state" className="btn-state" data-testid="start-recipe-btn"
-        onClick={() => redirect(history, location)}
-      />
-      {showBtnState(idPage, rec)}
+      <StateRecipeBtn idPage={idPage} rec={rec} />
       {/* <Footer /> */}
     </div>
   );

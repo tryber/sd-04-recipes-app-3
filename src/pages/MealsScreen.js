@@ -49,6 +49,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(MealsScreen);
 
 MealsScreen.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.array).isRequired,
+  // data: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchMealsProps: PropTypes.func.isRequired,
 };

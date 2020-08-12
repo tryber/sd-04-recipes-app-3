@@ -1,6 +1,8 @@
 import * as actionType from '../actions/actionsType';
 
-const INITIAL_STATE = { loading: true, data: [], error: '' };
+// Foi necessário mudar o valor inicial de 'data' de '[]' para '{}' porque
+// estava bugando o valor solicitado nas prop-types
+const INITIAL_STATE = { loading: true, data: {}, error: '' };
 
 const apiRequest = (state = INITIAL_STATE, action) => {
   switch (action.type) {
