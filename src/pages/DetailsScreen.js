@@ -7,7 +7,7 @@ import {
   IngredientsList, EmbeddedVideo /* Footer */, FavoriteBtn, ShareBtn /* Recommendations */,
 } from '../components';
 import { fetchRec } from '../actions/recRequest';
-import { setLS } from '../helpers';
+import { setLS, getRouteInfo } from '../helpers';
 import Recommendations from '../components/Recommendations/Recommendations';
 import StateRecipeBtn from '../components/DetailsScreen/StateRecipeBtn';
 // import { returnEndpoint } from '../services/requestAPI';
@@ -60,12 +60,12 @@ const getIngredients = (recipe) => {
 };
 
 // Returns in an object the main route (comidas or bebidas) and the recipe ID
-const getRouteInfo = (location) => {
-  const routeInfoArr = location.pathname
-    .split('/')
-    .filter((item) => item !== '');
-  return { mainRoute: routeInfoArr[0], recipeId: routeInfoArr[1] };
-};
+// const getRouteInfo = (location) => {
+//   const routeInfoArr = location.pathname
+//     .split('/')
+//     .filter((item) => item !== '');
+//   return { mainRoute: routeInfoArr[0], recipeId: routeInfoArr[1] };
+// };
 
 // Returns a string with the correct endpoint based on the URL main route
 const returnEndpoint = (location) => {
