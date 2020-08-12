@@ -21,13 +21,18 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
     } else {
       fetchMealsProps(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
     }
-  }, [filterCategory]);
+  }, [filterCategory, fetchMealsProps]);
+  // if (filterCategory !== 'All' && data.length === 0) {
+  //   return (<div>Sinto muito, não encontramos nenhuma receita para esses filtros.</div>);
+  // }
+  // }, [filterCategory]);
   return (
     <div className="main-page">
       <Header />
       {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory, filterCategory)}
       <div className="meals-container ">
-        {meals.map(({ strMeal, strMealThumb, idMeal }, index) => ItemCard(strMeal, strMealThumb, index, `/comidas/${idMeal}`))}
+        {meals.map(({ strMeal, strMealThumb, idMeal }, index) =>
+          ItemCard(strMeal, strMealThumb, index, `/comidas/${idMeal}`))}
       </div>
       <Footer />
     </div>
@@ -45,6 +50,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(MealsScreen);
 
 MealsScreen.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.array).isRequired,
+  // data: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchMealsProps: PropTypes.func.isRequired,
 };

@@ -3,6 +3,7 @@
   /* border: 1px solid black; */
   display: block;
   height: 300px;
+  margin-bottom: 50px;
   overflow-x: scroll;
   width: 100%;
 }
@@ -29,6 +30,10 @@
 
 img {
   width: 100%;
+}
+
+h1 {
+  margin-top: 25px;
 }
 
 p {

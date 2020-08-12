@@ -48,7 +48,7 @@ const FavoriteBtn = () => {
   const favoriteItem = createFavoriteItem(Object.values(recipeData)[0][0], id, isFood);
   useEffect(() => {
     setFavorite(checkFavorite(id));
-  }, []);
+  }, [id]);
 
   return (
     <input

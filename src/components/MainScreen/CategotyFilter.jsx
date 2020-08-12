@@ -9,8 +9,9 @@ const CategotyFilter = (url, setFilterCategory, filterCategory) => {
       return setCategory(reponse);
     };
     request();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(Object.values(category));
+  }, [url]);
+  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // console.log(Object.values(category));
   if (category.length === 0) return <div>Loading...</div>;
   return (
     <div>
