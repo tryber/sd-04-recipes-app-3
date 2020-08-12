@@ -177,7 +177,7 @@ DetailsScreen.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
-  }).isRequired  
+  }).isRequired,
 };
 
 export default DetailsScreen;
