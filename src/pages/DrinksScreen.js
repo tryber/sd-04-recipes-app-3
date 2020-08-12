@@ -30,7 +30,8 @@ const DrinksScreen = ({ data, fetchMealsProps }) => {
       <Header />
       {CategotyFilter('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list', setFilterCategory, filterCategory)}
       <div className="meals-container " data-ride="carousel">
-        {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => ItemCard(strDrink, strDrinkThumb, index, `/bebidas/${idDrink}`))}
+        {drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) =>
+          ItemCard(strDrink, strDrinkThumb, index, `/bebidas/${idDrink}`))}
       </div>
       <Footer />
     </div>

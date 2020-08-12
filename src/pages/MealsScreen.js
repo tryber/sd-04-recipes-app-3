@@ -29,9 +29,10 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory, filterCategory)}
+      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list',setFilterCategory, filterCategory)}
       <div className="meals-container ">
-        {meals.map(({ strMeal, strMealThumb, idMeal }, index) => ItemCard(strMeal, strMealThumb, index, `/comidas/${idMeal}`))}
+        {meals.map(({ strMeal, strMealThumb, idMeal }, index) =>
+          ItemCard(strMeal, strMealThumb, index, `/comidas/${idMeal}`))}
       </div>
       <Footer />
     </div>
