@@ -7,6 +7,7 @@ import {
   DrinksScreen,
   DetailsScreen,
   ProfileScreen,
+  ExploreScreen,
 } from './pages';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
           <Route exact path="/bebidas/:id" component={DetailsScreen} />
           <Route path="/comidas/:id/in-progress" />
           <Route path="/bebidas/:id/in-progress" />
-          <Route path="/explorar" />
+          <Route path="/explorar" component={ExploreScreen} />
           <Route exact path="/explorar/comidas" />
           <Route exact path="/explorar/bebidas" />
           <Route path="/explorar/comidas/ingredientes" />
