@@ -8,6 +8,7 @@ import {
   DetailsScreen,
   ProfileScreen,
   ExploreScreen,
+  FoodExploreScreen,
 } from './pages';
 
 function App() {
@@ -22,9 +23,9 @@ function App() {
           <Route exact path="/bebidas/:id" component={DetailsScreen} />
           <Route path="/comidas/:id/in-progress" />
           <Route path="/bebidas/:id/in-progress" />
-          <Route path="/explorar" component={ExploreScreen} />
-          <Route exact path="/explorar/comidas" />
-          <Route exact path="/explorar/bebidas" />
+          <Route exact path="/explorar" component={ExploreScreen} />
+          <Route path="/explorar/comidas" component={FoodExploreScreen} />
+          <Route path="/explorar/bebidas" component={FoodExploreScreen} />
           <Route path="/explorar/comidas/ingredientes" />
           <Route path="/explorar/bebidas/ingredientes" />
           <Route path="/explorar/comidas/area" />
