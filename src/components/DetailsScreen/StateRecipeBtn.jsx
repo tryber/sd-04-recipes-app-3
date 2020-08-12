@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { getLS } from '../../helpers';
 import '../../css/StateRecipeBtn.css';
 
@@ -43,6 +44,11 @@ const StateRecipeBtn = ({ idPage, rec }) => {
       {showBtnState(idPage, rec)}
     </div>
   );
+};
+
+StateRecipeBtn.propTypes = {
+  idPage: PropTypes.string.isRequired,
+  rec: PropTypes.string.isRequired
 };
 
 export default StateRecipeBtn;
