@@ -8,15 +8,16 @@ const redirect = (history, location) =>
   history.push(`${location.pathname}/in-progress`);
 
 const checkProgress = (page, idPage, btn) => {
+  const button = btn;
   const isProgress = Object.keys(getLS('inProgressRecipes')[page])
     .map((idProgress) => idProgress === idPage)
     .includes(true);
   if (isProgress) {
-    btn.style.display = 'initial';
-    btn.textContent = 'Continuar Receita';
+    button.style.display = 'initial';
+    button.textContent = 'Continuar Receita';
   } else {
-    btn.style.display = 'initial';
-    btn.textContent = 'Iniciar Receita';
+    button.style.display = 'initial';
+    button.textContent = 'Iniciar Receita';
   }
   return true;
 };
