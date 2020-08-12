@@ -1,13 +1,13 @@
 import * as actionType from '../actions/actionsType';
 
-const initialState = { loading: null, data: {}, error: '' };
+const INITIAL_STATE = { loading: false, data: '', error: '' };
 
-const recRequest = (state = initialState, action) => {
+const recRequest = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case actionType.FETCH_REC_REQUEST:
       return {
         ...state,
-        loading: true,
+        loading: false,
       };
     case actionType.FETCH_REC_SUCCESS:
       return {

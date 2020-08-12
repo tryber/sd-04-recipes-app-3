@@ -6,7 +6,6 @@ const Recommendations = ({ sixRecs, rec }) => {
   const idRec = `id${rec}`;
   const strRecThumb = `str${rec}Thumb`;
   const strRec = `str${rec}`;
-
   return (
     <div>
       <h1>Recomendadas</h1>

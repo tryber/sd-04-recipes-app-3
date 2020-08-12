@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
-import { ItemCard, CategotyFilter, Header, Footer } from '../components';
+import {
+  ItemCard, CategotyFilter, Header, Footer,
+} from '../components';
 import '../css/mainScreen.css';
 
 const MealsScreen = ({ data, fetchMealsProps }) => {
@@ -23,12 +25,13 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
   // if (filterCategory !== 'All' && data.length === 0) {
   //   return (<div>Sinto muito, não encontramos nenhuma receita para esses filtros.</div>);
   // }
+  // }, [filterCategory]);
   return (
     <div className="main-page">
       <Header />
-      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory)}
-      <div className="meals-container " >
-        {meals.map(({ strMeal, strMealThumb, idMeal }) => ItemCard(strMeal, strMealThumb, idMeal, `/comidas/${idMeal}`))}
+      {CategotyFilter('https://www.themealdb.com/api/json/v1/1/list.php?c=list', setFilterCategory, filterCategory)}
+      <div className="meals-container ">
+        {meals.map(({ strMeal, strMealThumb, idMeal }, index) => ItemCard(strMeal, strMealThumb, index, `/comidas/${idMeal}`))}
       </div>
       <Footer />
     </div>

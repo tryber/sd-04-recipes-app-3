@@ -1,17 +1,17 @@
 import React from 'react';
-import '../css/mealsScreen.css';
-import ItemCard from '../components/ItemCard';
-import SearchBar from '../components/SearchBar/SearchBar';
+import { ItemCard, SearchBar } from '../components';
+import '../css/mainScreen.css';
 
-const mainScreen = () =>
+const mainScreen = () => (
   <div>
     <header>
       <SearchBar />
     </header>
     <div>
-      <button>Categoria</button>
+      <button type="button">Categoria</button>
     </div>
     <ItemCard />
-  </div>;
+  </div>
+);
 
 export default mainScreen;
