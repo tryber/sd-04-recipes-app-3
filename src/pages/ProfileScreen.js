@@ -8,8 +8,6 @@ const ProfileScreen = () => {
   const [redirectTo, setRedirectTo] = useState('');
   const [userInfo] = useState(getLS('user'));
 
-  console.log(userInfo);
-
   if (redirectTo === 'done-recipes') {
     return <Redirect to="/receitas-feitas" />;
   }
