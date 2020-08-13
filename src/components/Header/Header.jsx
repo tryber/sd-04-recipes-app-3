@@ -34,21 +34,22 @@ const Header = () => {
   const location = useLocation();
   const foodRoute = useRouteMatch('/comidas/:id/');
   const drinkRoute = useRouteMatch('/bebidas/:id/');
+  const exploreRoute = location.pathname.startsWith('/explorar');
   const [barStatus, toggleSearch] = useState(false);
   if (
     location.pathname === '/' || foodRoute !== null || drinkRoute !== null
   ) return <div />;
   return (
     <React.Fragment>
-      <div className={barStatus ? 'show-bar' : ''}>
-        <div className="header" >
+      <div classame={barStatus ? 'show-bar' : ''}>
+        <div className="header">
           <Link to="/perfil">
             <div className="ico_user">
               <img data-testid="profile-top-btn" src={profileIcon} alt="profile icon" />
             </div>
           </Link>
           <p data-testid="page-title">{getTitle(location)}</p>
-          {renderSearchBtn(location, toggleSearch, barStatus, getTitle)}
+          {!exploreRoute ? renderSearchBtn(location, toggleSearch, barStatus, getTitle) : null}
         </div>
         {barStatus ? <SearchBar /> : null}
       </div>

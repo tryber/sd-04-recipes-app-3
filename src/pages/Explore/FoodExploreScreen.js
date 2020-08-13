@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import HeaderExplore from '../../components/Header/HeaderExplore';
+import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { requestAPI } from '../../services/requestAPI';
 
@@ -52,7 +52,7 @@ const FoodExploreScreen = () => {
   }, []);
   return (
     <div>
-      <HeaderExplore />
+      <Header />
       <Footer />
       {buttons(location.pathname, food)}
     </div>
