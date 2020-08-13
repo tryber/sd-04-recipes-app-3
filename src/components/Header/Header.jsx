@@ -39,6 +39,7 @@ const Header = () => {
   if (
     location.pathname === '/' || foodRoute !== null || drinkRoute !== null
   ) return <div />;
+
   return (
     <React.Fragment>
       <div classame={barStatus ? 'show-bar' : ''}>
