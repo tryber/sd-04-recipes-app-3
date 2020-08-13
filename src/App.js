@@ -7,6 +7,7 @@ import {
   DrinksScreen,
   DetailsScreen,
   ProfileScreen,
+  FavoriteRecipesScreen,
 } from './pages';
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
           <Route path="/explorar/comidas/area" />
           <Route path="/perfil" component={ProfileScreen} />
           <Route path="/receitas-feitas" />
-          <Route path="/receitas-favoritas" />
+          <Route path="/receitas-favoritas" component={FavoriteRecipesScreen} />
           <Route exact path="*" />
         </Switch>
       </main>
