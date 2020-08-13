@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useRouteMatch, Link } from 'react-router-dom';
+import { useLocation, Link, useRouteMatch } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
@@ -42,7 +42,7 @@ const Header = () => {
 
   return (
     <React.Fragment>
-      <div classame={barStatus ? 'show-bar' : ''}>
+      <div className={barStatus ? 'show-bar' : ''}>
         <div className="header">
           <Link to="/perfil">
             <div className="ico_user">
