@@ -4,10 +4,9 @@ import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import { getLS } from '../helpers';
 
-const userInfo = getLS('user');
-
 const ProfileScreen = () => {
   const [redirectTo, setRedirectTo] = useState('');
+  const [userInfo] = useState(getLS('user'));
 
   if (redirectTo === 'done-recipes') {
     return <Redirect to="/receitas-feitas" />;
