@@ -20,7 +20,6 @@ const ShareBtn = ({ type, id, index }) => {
       setInterval(() => setShareTimer((prevState) => prevState + 1), 1000),
     );
     copy(`http://${window.location.host}/${type}s/${id}`);
-    console.log(`http://${window.location.host}/${type}s/${id}`);
   };
 
   return (
