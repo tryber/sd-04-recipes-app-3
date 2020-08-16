@@ -4,7 +4,10 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
 import {
-  IngredientsList, EmbeddedVideo, FavoriteBtn, ShareBtn,
+  IngredientsList,
+  EmbeddedVideo,
+  FavoriteBtn,
+  ShareBtn,
 } from '../components';
 import { fetchRec } from '../actions/recRequest';
 import { setLS, getRouteInfo } from '../helpers';
@@ -12,17 +15,19 @@ import Recommendations from '../components/Recommendations/Recommendations';
 import StateRecipeBtn from '../components/DetailsScreen/StateRecipeBtn';
 
 const keysLS = () => {
-  const aDoneRecipes = [{
-    id: 0,
-    type: '',
-    area: '',
-    category: '',
-    alcoholicOrNot: '',
-    name: '',
-    image: '',
-    doneDate: '',
-    tags: [],
-  }];
+  const aDoneRecipes = [
+    {
+      id: 0,
+      type: '',
+      area: '',
+      category: '',
+      alcoholicOrNot: '',
+      name: '',
+      image: '',
+      doneDate: '',
+      tags: [],
+    },
+  ];
   const oInProgressRecipes = {
     cocktails: { 178319: [] },
     meals: { 52771: [] },
@@ -42,10 +47,11 @@ const getSixRecs = (recs, sixRecs) => {
 };
 
 // Get the desired object key from the recipe and returns an array
-const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
-  .filter((item) => item.startsWith(key))
-  .map((item) => recipe[item])
-  .filter((item) => item !== '' && item !== null);
+const recipeKeysToArray = (recipe, key) =>
+  Object.keys(recipe)
+    .filter((item) => item.startsWith(key))
+    .map((item) => recipe[item])
+    .filter((item) => item !== '' && item !== null);
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
@@ -72,7 +78,9 @@ const fetchs = (dispatch, location) => {
 
   // Fetch para recomendações
   if (location.pathname.startsWith('/comidas')) {
-    dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='));
+    dispatch(
+      fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='),
+    );
   } else {
     dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='));
   }
@@ -98,11 +106,17 @@ const getData = (selector, rec) => ({
   recipeData: selector((state) => state.api.data),
   loading: selector((state) => state.api.loading),
   load: selector((state) => state.recommendations.loading),
-  recs: selector((state) => state.recommendations.data[`${rec.toLowerCase()}s`]),
+  recs: selector(
+    (state) => state.recommendations.data[`${rec.toLowerCase()}s`],
+  ),
 });
 // ===== Fim =====
 
-const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
+const DetailsScreen = ({
+  match: {
+    params: { id: idPage },
+  },
+}) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const rec = location.pathname.startsWith('/comidas') ? 'Drink' : 'Meal';
@@ -114,7 +128,7 @@ const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
   useEffect(() => {
     fetchs(dispatch, location);
     keysLS();
-  }, []);
+  }, []); // eslint-disable-line
 
   if (store.loading) return <h1>Loading...</h1>;
 
@@ -133,8 +147,11 @@ const DetailsScreen = ({ match: { params: { id: idPage } } }) => {
       </div>
       <EmbeddedVideo isFood={isFood} recipe={recipe} />
       <div>
-        {store.load === null
-          ? 'Loading...' : <Recommendations sixRecs={sixRecs} rec={rec} />}
+        {store.load === null ? (
+          'Loading...'
+        ) : (
+          <Recommendations sixRecs={sixRecs} rec={rec} />
+        )}
       </div>
       <StateRecipeBtn idPage={idPage} rec={rec} />
     </div>
