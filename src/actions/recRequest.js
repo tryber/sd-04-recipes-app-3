@@ -16,7 +16,7 @@ export const fetchRecFailure = (error) => ({
 });
 
 export const fetchRec = (url) => (dispatch) => {
-  dispatch(fetchRecRequest);
+  dispatch(fetchRecRequest());
   return fetch(url)
     .then((response) => response.json())
     .then((json) => dispatch(fetchRecSuccess(json)))

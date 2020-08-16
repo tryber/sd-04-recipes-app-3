@@ -15,7 +15,7 @@ export const fetchMealsFailure = (error) => ({
 });
 
 export const fetchMeals = (url) => (dispatch) => {
-  dispatch(fetchMealsRequest);
+  dispatch(fetchMealsRequest());
   return fetch(url)
     .then((response) => response.json())
     .then((json) => dispatch(fetchMealsSuccess(json)))

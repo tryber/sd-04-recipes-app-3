@@ -9,7 +9,6 @@ import {
   ProfileScreen,
   FavoriteRecipesScreen,
 } from './pages';
-import InProgressScreen from './pages/InProgressScreen';
 
 function App() {
   return (
@@ -21,8 +20,8 @@ function App() {
           <Route exact path="/bebidas" component={DrinksScreen} />
           <Route exact path="/comidas/:id" component={DetailsScreen} />
           <Route exact path="/bebidas/:id" component={DetailsScreen} />
-          <Route path="/comidas/:id/in-progress" component={InProgressScreen} />
-          <Route path="/bebidas/:id/in-progress" component={InProgressScreen} />
+          <Route path="/comidas/:id/in-progress" />
+          <Route path="/bebidas/:id/in-progress" />
           <Route path="/explorar" />
           <Route exact path="/explorar/comidas" />
           <Route exact path="/explorar/bebidas" />
