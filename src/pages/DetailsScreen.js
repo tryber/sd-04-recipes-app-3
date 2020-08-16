@@ -114,25 +114,25 @@ const DetailsScreen = ({
   }, []); // eslint-disable-line
 
   return (!recipe ? <h1>Loading...</h1> :
+  <div>
+    {recipeData(isMeal, recipe[0])}
+    <ShareBtn />
+    <FavoriteBtn />
+    <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
     <div>
-      {recipeData(isMeal, recipe[0])}
-      <ShareBtn />
-      <FavoriteBtn />
-      <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
-      <div>
-        <h2>Instruções</h2>
-        <p data-testid="instructions">{recipe[0].strInstructions}</p>
-      </div>
-      <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
-      <div>
-        {store.load === true ? (
-          'Loading...'
-        ) : (
-            <Recommendations sixRecs={sixRecs} rec={rec} />
-          )}
-      </div>
-      <StateRecipeBtn idPage={idPage} rec={rec} />
+      <h2>Instruções</h2>
+      <p data-testid="instructions">{recipe[0].strInstructions}</p>
     </div>
+    <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
+    <div>
+      {store.load === true ? (
+        'Loading...'
+      ) : (
+        <Recommendations sixRecs={sixRecs} rec={rec} />
+      )}
+    </div>
+    <StateRecipeBtn idPage={idPage} rec={rec} />
+  </div>
   );
 };
 
