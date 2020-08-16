@@ -8,3 +8,4 @@ export { default as FavoriteRecipesScreen } from './FavoriteRecipesScreen';
 // Explore Screen
 export { default as ExploreScreen } from './Explore/ExploreScreen';
 export { default as FoodExploreScreen } from './Explore/FoodExploreScreen';
+export { default as IngredientsExploreScreen } from './Explore/IngredientsExploreSreen';
