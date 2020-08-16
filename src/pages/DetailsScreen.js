@@ -36,6 +36,8 @@ const keysLS = () => {
   return setLS('inProgressRecipes', oInProgressRecipes);
 };
 
+keysLS();
+
 // Get the desired object key from the recipe and returns an array
 const recipeKeysToArray = (recipe, key) =>
   Object.keys(recipe)
@@ -99,7 +101,6 @@ const DetailsScreen = ({
     params: { id: idPage },
   },
 }) => {
-  keysLS();
   const dispatch = useDispatch();
   const location = useLocation();
   const isMeal = location.pathname.startsWith('/comidas');
