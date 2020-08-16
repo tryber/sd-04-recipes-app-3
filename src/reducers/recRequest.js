@@ -7,7 +7,7 @@ const recRequest = (state = INITIAL_STATE, action) => {
     case actionType.FETCH_REC_REQUEST:
       return {
         ...state,
-        loading: false,
+        loading: true,
       };
     case actionType.FETCH_REC_SUCCESS:
       return {
