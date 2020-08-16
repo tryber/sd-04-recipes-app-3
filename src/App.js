@@ -10,6 +10,7 @@ import {
   ExploreScreen,
   FoodExploreScreen,
   FavoriteRecipesScreen,
+  IngredientsExploreScreen,
 } from './pages';
 
 function App() {
@@ -23,12 +24,12 @@ function App() {
           <Route exact path="/comidas/:id" component={DetailsScreen} />
           <Route exact path="/bebidas/:id" component={DetailsScreen} />
           <Route path="/comidas/:id/in-progress" />
-          <Route path="/bebidas/:id/in-progress" />
+          <Route exact path="/bebidas/:id/in-progress" />
           <Route exact path="/explorar" component={ExploreScreen} />
-          <Route path="/explorar/comidas" component={FoodExploreScreen} />
-          <Route path="/explorar/bebidas" component={FoodExploreScreen} />
-          <Route path="/explorar/comidas/ingredientes" />
-          <Route path="/explorar/bebidas/ingredientes" />
+          <Route exact path="/explorar/comidas" component={FoodExploreScreen} />
+          <Route exact path="/explorar/bebidas" component={FoodExploreScreen} />
+          <Route path="/explorar/comidas/ingredientes" component={IngredientsExploreScreen} />
+          <Route exact path="/explorar/bebidas/ingredientes" component={IngredientsExploreScreen} />
           <Route path="/explorar/comidas/area" />
           <Route path="/perfil" component={ProfileScreen} />
           <Route path="/receitas-feitas" />
