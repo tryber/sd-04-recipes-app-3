@@ -36,8 +36,6 @@ const keysLS = () => {
   return setLS('inProgressRecipes', oInProgressRecipes);
 };
 
-keysLS();
-
 // Get the desired object key from the recipe and returns an array
 const recipeKeysToArray = (recipe, key) =>
   Object.keys(recipe)
@@ -86,6 +84,15 @@ const recipeData = (isFood, recipe) => (
   </div>
 );
 
+const recommendations = (store, sixRecs, rec) =>
+  <div>
+    {(
+      store.load === true
+      ? 'Loading...'
+      : <Recommendations sixRecs={sixRecs} rec={rec} />
+    )}
+  </div>;
+
 const getData = (selector, rec) => ({
   data: selector((state) => state.api.data),
   loading: selector((state) => state.api.loading),
@@ -101,6 +108,7 @@ const DetailsScreen = ({
     params: { id: idPage },
   },
 }) => {
+  keysLS();
   const dispatch = useDispatch();
   const location = useLocation();
   const isMeal = location.pathname.startsWith('/comidas');
@@ -115,25 +123,19 @@ const DetailsScreen = ({
   }, []); // eslint-disable-line
 
   return (!recipe ? <h1>Loading...</h1> :
-  <div>
-    {recipeData(isMeal, recipe[0])}
-    <ShareBtn />
-    <FavoriteBtn />
-    <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
     <div>
-      <h2>Instruções</h2>
-      <p data-testid="instructions">{recipe[0].strInstructions}</p>
+      {recipeData(isMeal, recipe[0])}
+      <ShareBtn />
+      <FavoriteBtn />
+      <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
+      <div>
+        <h2>Instruções</h2>
+        <p data-testid="instructions">{recipe[0].strInstructions}</p>
+      </div>
+      <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
+      {recommendations(store, sixRecs, rec)}
+      <StateRecipeBtn idPage={idPage} rec={rec} />
     </div>
-    <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
-    <div>
-      {store.load === true ? (
-        'Loading...'
-      ) : (
-        <Recommendations sixRecs={sixRecs} rec={rec} />
-      )}
-    </div>
-    <StateRecipeBtn idPage={idPage} rec={rec} />
-  </div>
   );
 };
 
