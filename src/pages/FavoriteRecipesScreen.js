@@ -1,31 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import Header from '../components/Header/Header';
 import FavoriteRecipeCard from '../components/FavoriteRecipesScreen/FavoriteRecipeCard';
 import FilterBtn from '../components/FavoriteRecipesScreen/FilterBtn';
-import favoriteRecipes from '../actions/favoriteRecipes';
 import { getLS } from '../helpers';
 
-const filterFavorites = (arr, filter) =>
-  arr.filter((item) => {
-    if (filter === 'food') {
-      return item.type === 'comida';
-    }
+const filterFavorites = (arr, filter) => arr.filter((item) => {
+  if (filter === 'food') {
+    return item.type === 'comida';
+  }
 
-    if (filter === 'drink') {
-      return item.type === 'bebida';
-    }
+  if (filter === 'drink') {
+    return item.type === 'bebida';
+  }
 
-    return item;
-  });
+  return item;
+});
 
 const FavoriteRecipesScreen = () => {
-  const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorites);
+  // const dispatch = useDispatch();
+  // const favorites = useSelector((state) => state.favorites);
+  const favorites = getLS('favoriteRecipes');
   const [filter, setFilter] = useState('');
-  useEffect(() => {
-    dispatch(favoriteRecipes(getLS('favoriteRecipes')));
-  }, []); // eslint-disable-line
+  // useEffect(() => {
+  //   dispatch(favoriteRecipes(getLS('favoriteRecipes')));
+  // }, []); // eslint-disable-line
 
   return (
     <div>
@@ -49,13 +47,13 @@ const FavoriteRecipesScreen = () => {
         text="All"
       />
 
-      {filterFavorites(favorites, filter).map((favoriteItem, index) => (
+      {favorites ? filterFavorites(favorites, filter).map((favoriteItem, index) => (
         <FavoriteRecipeCard
           key={favoriteItem.id}
           favoriteItem={favoriteItem}
           favoriteItemIndex={index}
         />
-      ))}
+      )) : null}
     </div>
   );
 };
