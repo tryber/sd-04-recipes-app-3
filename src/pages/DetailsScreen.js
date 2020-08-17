@@ -28,12 +28,12 @@ const keysLS = () => {
       tags: [],
     },
   ];
-  const oInProgressRecipes = {
-    cocktails: { 178319: [] },
-    meals: { 52771: [] },
-  };
+  // const oInProgressRecipes = {
+  //   cocktails: { 178319: [] },
+  //   meals: { 52771: [] },
+  // };
   setLS('doneRecipes', aDoneRecipes);
-  return setLS('inProgressRecipes', oInProgressRecipes);
+  // return setLS('inProgressRecipes', oInProgressRecipes);
 };
 
 // Get the desired object key from the recipe and returns an array
@@ -54,17 +54,23 @@ const getIngredients = (recipe) => {
 };
 
 // ===== Funções criadas para diminuir complexidade cognitiva =====
-const fetchs = (dispatch, idPage, isMeal) => (
-  isMeal
-    ? (
-      dispatch(fetchMeals(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idPage}`)),
-      dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='))
-    )
-    : (
-      dispatch(fetchMeals(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idPage}`)),
-      dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='))
-    )
-);
+const fetchs = (dispatch, idPage, isMeal) => (isMeal
+  ? (dispatch(
+    fetchMeals(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idPage}`,
+    ),
+  ),
+  dispatch(
+    fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='),
+  ))
+  : (dispatch(
+    fetchMeals(
+      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idPage}`,
+    ),
+  ),
+  dispatch(
+    fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='),
+  )));
 
 const recipeData = (isFood, recipe) => (
   <div>
@@ -84,10 +90,10 @@ const recipeData = (isFood, recipe) => (
 
 const recommendations = (store, sixRecs, rec) => (
   <div>
-    {(
-      store.load === true
-        ? 'Loading...'
-        : <Recommendations sixRecs={sixRecs} rec={rec} />
+    {store.load === true ? (
+      'Loading...'
+    ) : (
+      <Recommendations sixRecs={sixRecs} rec={rec} />
     )}
   </div>
 );
@@ -122,22 +128,22 @@ const DetailsScreen = ({
     fetchs(dispatch, idPage, isMeal);
   }, []); // eslint-disable-line
 
-  return (!recipe || store.loaging ? <h1>Loading...</h1>
-    : (
+  return !recipe ? (
+    <h1>Loading...</h1>
+  ) : (
+    <div>
+      {recipeData(isMeal, recipe[0])}
+      <ShareBtn />
+      <FavoriteBtn />
+      <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
       <div>
-        {recipeData(isMeal, recipe[0])}
-        <ShareBtn />
-        <FavoriteBtn />
-        <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
-        <div>
-          <h2>Instruções</h2>
-          <p data-testid="instructions">{recipe[0].strInstructions}</p>
-        </div>
-        <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
-        {recommendations(store, sixRecs, rec)}
-        <StateRecipeBtn idPage={idPage} rec={rec} />
+        <h2>Instruções</h2>
+        <p data-testid="instructions">{recipe[0].strInstructions}</p>
       </div>
-    )
+      <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
+      {recommendations(store, sixRecs, rec)}
+      <StateRecipeBtn idPage={idPage} rec={rec} />
+    </div>
   );
 };
 
