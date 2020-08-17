@@ -6,14 +6,13 @@ import { fetchMeals } from '../actions/apiRequest';
 import IngredientsList from '../components/InProgressScreen/IngredientsList';
 import ShareBtn from '../components/InProgressScreen/ShareBtn';
 import FavoriteBtn from '../components/DetailsScreen/FavoriteBtn';
-import { getLS, setLS } from '../helpers';
+// import { getLS } from '../helpers';
 
 // Get the desired object key from the recipe and returns an array
-const recipeKeysToArray = (recipe, key) =>
-  Object.keys(recipe)
-    .filter((item) => item.startsWith(key))
-    .map((item) => recipe[item])
-    .filter((item) => item !== '' && item !== null);
+const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
+  .filter((item) => item.startsWith(key))
+  .map((item) => recipe[item])
+  .filter((item) => item !== '' && item !== null);
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
@@ -26,11 +25,9 @@ const getIngredients = (recipe) => {
   }));
 };
 
-const routeToFetch = (isFood, recipeId) => {
-  return isFood
-    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`
-    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeId}`;
-};
+const routeToFetch = (isFood, recipeId) => (isFood
+  ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`
+  : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
 
 const recipeInfo = (recipe, isFood) => ({
   image: isFood ? recipe.strMealThumb : recipe.strDrinkThumb,
@@ -40,10 +37,10 @@ const recipeInfo = (recipe, isFood) => ({
   instructions: recipe.strInstructions,
 });
 
-const manageLocalStorage = (recipeId, isFood, ingredientsList) => {
-  const currentLS = getLS('inProgressRecipes');
-  console.log(currentLS);
-};
+// const manageLocalStorage = (recipeId, isFood, ingredientsList) => {
+//   const currentLS = getLS('inProgressRecipes');
+//   console.log(currentLS);
+// };
 
 const InProcessScreen = ({
   match: {
@@ -56,10 +53,13 @@ const InProcessScreen = ({
   const recipe = useSelector(
     (state) => state.api.data[isFood ? 'meals' : 'drinks'],
   );
+  const checkBoxList = document.getElementsByName('ingredient-item');
+
+  checkBoxList.entries((value) => console.log(value));
 
   useEffect(() => {
     dispatch(fetchMeals(routeToFetch(isFood, recipeId)));
-    manageLocalStorage(recipeId, isFood);
+    // manageLocalStorage(recipeId, isFood);
   }, []); // eslint-disable-line
 
   return !recipe ? (
