@@ -10,3 +10,4 @@ export { default as InProgressScreen } from './InProgressScreen';
 export { default as ExploreScreen } from './Explore/ExploreScreen';
 export { default as FoodExploreScreen } from './Explore/FoodExploreScreen';
 export { default as IngredientsExploreScreen } from './Explore/IngredientsExploreSreen';
+export { default as AreaExploreScreen } from './Explore/AreaExploreScreen';

@@ -12,6 +12,7 @@ import {
   FavoriteRecipesScreen,
   IngredientsExploreScreen,
   InProgressScreen,
+  AreaExploreScreen,
 } from './pages';
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
           <Route exact path="/explorar/bebidas" component={FoodExploreScreen} />
           <Route path="/explorar/comidas/ingredientes" component={IngredientsExploreScreen} />
           <Route exact path="/explorar/bebidas/ingredientes" component={IngredientsExploreScreen} />
-          <Route path="/explorar/comidas/area" />
+          <Route path="/explorar/comidas/area" component={AreaExploreScreen} />
           <Route path="/perfil" component={ProfileScreen} />
           <Route path="/receitas-feitas" />
           <Route path="/receitas-favoritas" component={FavoriteRecipesScreen} />
