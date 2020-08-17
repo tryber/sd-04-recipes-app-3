@@ -49,7 +49,7 @@ const FoodExploreScreen = () => {
     };
 
     request();
-  }, []);
+  });
   return (
     <div>
       <Header />

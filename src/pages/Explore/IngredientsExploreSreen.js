@@ -58,7 +58,7 @@ const IngredientsExploreSreen = () => {
       return null;
     };
     request();
-  }, []);
+  });
   console.log(ingredients);
   return (
     <div>

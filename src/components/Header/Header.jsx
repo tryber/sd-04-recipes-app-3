@@ -7,7 +7,7 @@ import '../../css/Header.css';
 
 const renderSearchBtn = (location, toggleSearch, barStatus, getTitle) => {
   const title = getTitle(location);
-  if (title.includes('Explorar') || title.includes('Receitas') || title.includes('Perfil')) {
+  if (title.includes('Receitas') || title.includes('Perfil')) {
     if (!title.includes('Origem')) return <div className="empty" />;
   }
   return (
