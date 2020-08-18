@@ -75,10 +75,10 @@ const recipeData = (isFood, recipe) => (
   </div>
 );
 
-const recommendations = (store, sixRecs, rec) => (
+const recommendations = (recStore, sixRecs, rec) => (
   <div>
     {(
-      store.load === true
+      recStore.load === true
         ? 'Loading...'
         : <Recommendations sixRecs={sixRecs} rec={rec} />
     )}
@@ -93,7 +93,7 @@ const getItemData = (selector) => ({
 const getRecData = (selector, rec) => ({
   load: selector((state) => state.recommendations.loading),
   recs: selector(
-    (state) => state.recommendations.data[`${rec.toLowerCase()}s`],
+    (state) => state.recommendations.data[rec.toLowerCase()],
   ),
 });
 // ===== Fim =====
@@ -110,7 +110,6 @@ const DetailsScreen = ({
   const rec = currentRecipe === 'meals' ? 'Drinks' : 'Meals';
   const recStore = getRecData(useSelector, rec);
   const recipe = mainStore.data[currentRecipe];
-  console.log(recStore);
   const sixRecs = recStore.recs ? recStore.recs.slice(0, 6) : [];
 
   useEffect(() => {
