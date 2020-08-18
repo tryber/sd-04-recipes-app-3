@@ -80,7 +80,7 @@ const recommendations = (recStore, sixRecs, rec) => (
     {(
       recStore.load === true
         ? 'Loading...'
-        : <Recommendations sixRecs={sixRecs} rec={rec} />
+        : <Recommendations sixRecs={sixRecs} rec={rec.slice(0, -1)} />
     )}
   </div>
 );

@@ -22,7 +22,7 @@ const checkProgress = (page, idPage, btn) => {
 };
 
 const showBtnState = (idPage, rec) => {
-  const page = (`${rec.toLowerCase()}s` === 'meals' ? 'cocktails' : 'meals');
+  const page = (rec.toLowerCase() === 'meals' ? 'cocktails' : 'meals');
   if (document.getElementById('btn-state') !== null) {
     const btn = document.getElementById('btn-state');
     const idDone = getLS('doneRecipes')[0].id;
@@ -41,6 +41,7 @@ const StateRecipeBtn = ({ idPage, rec }) => {
   return (
     <div>
       <button
+        aria-label="Start"
         id="btn-state"
         className="btn-state"
         data-testid="start-recipe-btn"
