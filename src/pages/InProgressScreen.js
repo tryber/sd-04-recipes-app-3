@@ -7,6 +7,7 @@ import IngredientsList from '../components/InProgressScreen/IngredientsList';
 import ShareBtn from '../components/InProgressScreen/ShareBtn';
 import FavoriteBtn from '../components/DetailsScreen/FavoriteBtn';
 import { recipeKeysToArray } from '../helpers';
+// import { getLS } from '../helpers';
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {

@@ -36,8 +36,6 @@ const keysLS = () => {
   return setLS('inProgressRecipes', oInProgressRecipes);
 };
 
-// Get the desired object key from the recipe and returns an array
-
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
   const ingredientsKeys = recipeKeysToArray(recipe, 'strIngredient');

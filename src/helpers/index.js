@@ -14,6 +14,8 @@ export const getRouteInfo = (location) => {
   return { mainRoute: routeInfoArr[0], recipeId: routeInfoArr[1] };
 };
 
+
+// Get the desired object key from the recipe and returns an array
 export const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
   .filter((item) => item.startsWith(key))
   .map((item) => recipe[item])
