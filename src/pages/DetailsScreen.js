@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
 import {
@@ -35,15 +34,6 @@ const keysLS = () => {
   setLS('doneRecipes', aDoneRecipes);
   return setLS('inProgressRecipes', oInProgressRecipes);
 };
-
-// Get the desired object key from the recipe and returns an array
-<<<<<<< HEAD
-const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
-  .filter((item) => item.startsWith(key))
-  .map((item) => recipe[item])
-  .filter((item) => item !== '' && item !== null);
-=======
->>>>>>> master
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
@@ -115,22 +105,22 @@ const DetailsScreen = ({
 }) => {
   keysLS();
   const dispatch = useDispatch();
-  const location = useLocation();
-  const isMeal = location.pathname.startsWith('/comidas');
-  const store = getItemData(useSelector);
-  const rec = isMeal ? 'Drink' : 'Meal';
-  const currentRecipe = Object.keys(store)[0];
-  const recipe = store.data[currentRecipe];
-  const sixRecs = store.recs ? store.recs.slice(0, 6) : [];
+  const mainStore = getItemData(useSelector);
+  const currentRecipe = Object.keys(mainStore.data)[0];
+  const rec = currentRecipe === 'meals' ? 'Drinks' : 'Meals';
+  const recStore = getRecData(useSelector, rec);
+  const recipe = mainStore.data[currentRecipe];
+  console.log(recStore);
+  const sixRecs = recStore.recs ? recStore.recs.slice(0, 6) : [];
 
   useEffect(() => {
-    fetchs(dispatch, idPage, isMeal);
+    fetchs(dispatch, idPage, currentRecipe === 'meals');
   }, []); // eslint-disable-line
 
   return (!recipe ? <h1>Loading...</h1>
     : (
       <div>
-        {recipeData(isMeal, recipe[0])}
+        {recipeData(currentRecipe === 'meals', recipe[0])}
         <ShareBtn />
         <FavoriteBtn />
         <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
@@ -138,8 +128,8 @@ const DetailsScreen = ({
           <h2>Instruções</h2>
           <p data-testid="instructions">{recipe[0].strInstructions}</p>
         </div>
-        <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
-        {recommendations(store, sixRecs, rec)}
+        <EmbeddedVideo isFood={currentRecipe === 'meals'} recipe={recipe[0]} />
+        {recommendations(recStore, sixRecs, rec)}
         <StateRecipeBtn idPage={idPage} rec={rec} />
       </div>
     )
