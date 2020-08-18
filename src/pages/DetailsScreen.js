@@ -28,12 +28,12 @@ const keysLS = () => {
       tags: [],
     },
   ];
-  // const oInProgressRecipes = {
-  //   cocktails: { 178319: [] },
-  //   meals: { 52771: [] },
-  // };
+  const oInProgressRecipes = {
+    cocktails: { 178319: [] },
+    meals: { 52771: [] },
+  };
   setLS('doneRecipes', aDoneRecipes);
-  // return setLS('inProgressRecipes', oInProgressRecipes);
+  return setLS('inProgressRecipes', oInProgressRecipes);
 };
 
 // Get the desired object key from the recipe and returns an array
