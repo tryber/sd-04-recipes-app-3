@@ -5,7 +5,7 @@ import exploreIcon from '../../images/exploreIcon.svg';
 import mealIcon from '../../images/mealIcon.svg';
 import '../../css/Footer.css';
 
-const Footer = () =>
+const Footer = () => (
   <footer data-testid="footer" className="footer">
     <Link to="/bebidas">
       <img data-testid="drinks-bottom-btn" src={drinkIcon} alt="Ícone de bebida" />
@@ -16,6 +16,7 @@ const Footer = () =>
     <Link to="/comidas">
       <img data-testid="food-bottom-btn" src={mealIcon} alt="Ícone de refeição" />
     </Link>
-  </footer>;
+  </footer>
+);
 
 export default Footer;

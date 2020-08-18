@@ -7,8 +7,8 @@ import '../../css/Header.css';
 
 const renderSearchBtn = (location, toggleSearch, barStatus, getTitle) => {
   const title = getTitle(location);
-  if (title.includes('Explorar') || title.includes('Receitas') || title.includes('Perfil')) {
-    if (!title.includes('Origem')) return <div className="empty" />;
+  if ((title.includes('Explorar') && !title.includes('Origem')) || title.includes('Receitas') || title.includes('Perfil')) {
+    return <div className="empty" />;
   }
   return (
     <button type="button" className="ico-search-btn" onClick={() => toggleSearch(!barStatus)}>

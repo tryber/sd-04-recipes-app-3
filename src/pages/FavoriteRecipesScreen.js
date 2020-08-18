@@ -27,7 +27,6 @@ const FavoriteRecipesScreen = () => {
 
   return (
     <div>
-      <Header />
       <FilterBtn
         dataTestId="filter-by-food-btn"
         filter="food"

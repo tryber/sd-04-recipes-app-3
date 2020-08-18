@@ -13,3 +13,8 @@ export const getRouteInfo = (location) => {
     .filter((item) => item !== '');
   return { mainRoute: routeInfoArr[0], recipeId: routeInfoArr[1] };
 };
+
+export const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
+  .filter((item) => item.startsWith(key))
+  .map((item) => recipe[item])
+  .filter((item) => item !== '' && item !== null);

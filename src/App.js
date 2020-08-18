@@ -6,8 +6,14 @@ import {
   MealsScreen,
   DrinksScreen,
   DetailsScreen,
+  DoneRecipesScreen,
   ProfileScreen,
+  ExploreScreen,
+  FoodExploreScreen,
   FavoriteRecipesScreen,
+  IngredientsExploreScreen,
+  InProgressScreen,
+  AreaExploreScreen,
 } from './pages';
 
 function App() {
@@ -20,16 +26,16 @@ function App() {
           <Route exact path="/bebidas" component={DrinksScreen} />
           <Route exact path="/comidas/:id" component={DetailsScreen} />
           <Route exact path="/bebidas/:id" component={DetailsScreen} />
-          <Route path="/comidas/:id/in-progress" />
-          <Route path="/bebidas/:id/in-progress" />
-          <Route path="/explorar" />
-          <Route exact path="/explorar/comidas" />
-          <Route exact path="/explorar/bebidas" />
-          <Route path="/explorar/comidas/ingredientes" />
-          <Route path="/explorar/bebidas/ingredientes" />
-          <Route path="/explorar/comidas/area" />
+          <Route path="/comidas/:id/in-progress" component={InProgressScreen} />
+          <Route path="/bebidas/:id/in-progress" component={InProgressScreen} />
+          <Route exact path="/explorar" component={ExploreScreen} />
+          <Route exact path="/explorar/comidas" component={FoodExploreScreen} />
+          <Route exact path="/explorar/bebidas" component={FoodExploreScreen} />
+          <Route path="/explorar/comidas/ingredientes" component={IngredientsExploreScreen} />
+          <Route exact path="/explorar/bebidas/ingredientes" component={IngredientsExploreScreen} />
+          <Route path="/explorar/comidas/area" component={AreaExploreScreen} />
           <Route path="/perfil" component={ProfileScreen} />
-          <Route path="/receitas-feitas" />
+          <Route path="/receitas-feitas" component={DoneRecipesScreen} />
           <Route path="/receitas-favoritas" component={FavoriteRecipesScreen} />
           <Route exact path="*" />
         </Switch>

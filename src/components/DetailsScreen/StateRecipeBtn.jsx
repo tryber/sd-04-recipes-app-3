@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { getLS } from '../../helpers';
 import '../../css/StateRecipeBtn.css';
 
-const redirect = (history, location) =>
-  history.push(`${location.pathname}/in-progress`);
+const redirect = (history, location) => history.push(`${location.pathname}/in-progress`);
 
 const checkProgress = (page, idPage, btn) => {
   const button = btn;
@@ -42,7 +41,10 @@ const StateRecipeBtn = ({ idPage, rec }) => {
   return (
     <div>
       <button
-        id="btn-state" className="btn-state" data-testid="start-recipe-btn"
+        id="btn-state"
+        className="btn-state"
+        data-testid="start-recipe-btn"
+        type="button"
         onClick={() => redirect(history, location)}
       />
       {showBtnState(idPage, rec)}

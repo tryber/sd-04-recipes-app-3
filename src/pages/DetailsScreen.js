@@ -10,7 +10,7 @@ import {
   ShareBtn,
 } from '../components';
 import { fetchRec } from '../actions/recRequest';
-import { setLS } from '../helpers';
+import { setLS, recipeKeysToArray } from '../helpers';
 import Recommendations from '../components/Recommendations/Recommendations';
 import StateRecipeBtn from '../components/DetailsScreen/StateRecipeBtn';
 
@@ -37,10 +37,13 @@ const keysLS = () => {
 };
 
 // Get the desired object key from the recipe and returns an array
+<<<<<<< HEAD
 const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
   .filter((item) => item.startsWith(key))
   .map((item) => recipe[item])
   .filter((item) => item !== '' && item !== null);
+=======
+>>>>>>> master
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
