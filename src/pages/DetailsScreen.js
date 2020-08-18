@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
 import {
@@ -48,23 +47,17 @@ const getIngredients = (recipe) => {
 };
 
 // ===== Funções criadas para diminuir complexidade cognitiva =====
-const fetchs = (dispatch, idPage, isMeal) => (isMeal
-  ? (dispatch(
-    fetchMeals(
-      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idPage}`,
-    ),
-  ),
-  dispatch(
-    fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='),
-  ))
-  : (dispatch(
-    fetchMeals(
-      `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idPage}`,
-    ),
-  ),
-  dispatch(
-    fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='),
-  )));
+const fetchs = (dispatch, idPage, isMeal) => (
+  isMeal
+    ? (
+      dispatch(fetchMeals(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idPage}`)),
+      dispatch(fetchRec('https://www.thecocktaildb.com/api/json/v1/1/search.php?s='))
+    )
+    : (
+      dispatch(fetchMeals(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idPage}`)),
+      dispatch(fetchRec('https://www.themealdb.com/api/json/v1/1/search.php?s='))
+    )
+);
 
 const recipeData = (isFood, recipe) => (
   <div>
@@ -82,22 +75,25 @@ const recipeData = (isFood, recipe) => (
   </div>
 );
 
-const recommendations = (store, sixRecs, rec) => (
+const recommendations = (recStore, sixRecs, rec) => (
   <div>
-    {store.load === true ? (
-      'Loading...'
-    ) : (
-      <Recommendations sixRecs={sixRecs} rec={rec} />
+    {(
+      recStore.load === true
+        ? 'Loading...'
+        : <Recommendations sixRecs={sixRecs} rec={rec.slice(0, -1)} />
     )}
   </div>
 );
 
-const getData = (selector, rec) => ({
+const getItemData = (selector) => ({
   data: selector((state) => state.api.data),
   loading: selector((state) => state.api.loading),
+});
+
+const getRecData = (selector, rec) => ({
   load: selector((state) => state.recommendations.loading),
   recs: selector(
-    (state) => state.recommendations.data[`${rec.toLowerCase()}s`],
+    (state) => state.recommendations.data[rec.toLowerCase()],
   ),
 });
 // ===== Fim =====
@@ -109,35 +105,33 @@ const DetailsScreen = ({
 }) => {
   keysLS();
   const dispatch = useDispatch();
-  const location = useLocation();
-  const isMeal = location.pathname.startsWith('/comidas');
-  const rec = isMeal ? 'Drink' : 'Meal';
-  const currentRecipe = isMeal ? 'meals' : 'drinks';
-  const store = getData(useSelector, rec);
-  console.log(store);
-  const recipe = store.data[currentRecipe];
-  const sixRecs = store.recs ? store.recs.slice(0, 6) : [];
+  const mainStore = getItemData(useSelector);
+  const currentRecipe = Object.keys(mainStore.data)[0];
+  const rec = currentRecipe === 'meals' ? 'Drinks' : 'Meals';
+  const recStore = getRecData(useSelector, rec);
+  const recipe = mainStore.data[currentRecipe];
+  const sixRecs = recStore.recs ? recStore.recs.slice(0, 6) : [];
 
   useEffect(() => {
-    fetchs(dispatch, idPage, isMeal);
+    fetchs(dispatch, idPage, currentRecipe === 'meals');
   }, []); // eslint-disable-line
 
-  return !recipe ? (
-    <h1>Loading...</h1>
-  ) : (
-    <div>
-      {recipeData(isMeal, recipe[0])}
-      <ShareBtn />
-      <FavoriteBtn />
-      <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
+  return (!recipe ? <h1>Loading...</h1>
+    : (
       <div>
-        <h2>Instruções</h2>
-        <p data-testid="instructions">{recipe[0].strInstructions}</p>
+        {recipeData(currentRecipe === 'meals', recipe[0])}
+        <ShareBtn />
+        <FavoriteBtn />
+        <IngredientsList ingredients={getIngredients} recipe={recipe[0]} />
+        <div>
+          <h2>Instruções</h2>
+          <p data-testid="instructions">{recipe[0].strInstructions}</p>
+        </div>
+        <EmbeddedVideo isFood={currentRecipe === 'meals'} recipe={recipe[0]} />
+        {recommendations(recStore, sixRecs, rec)}
+        <StateRecipeBtn idPage={idPage} rec={rec} />
       </div>
-      <EmbeddedVideo isFood={isMeal} recipe={recipe[0]} />
-      {recommendations(store, sixRecs, rec)}
-      <StateRecipeBtn idPage={idPage} rec={rec} />
-    </div>
+    )
   );
 };
 

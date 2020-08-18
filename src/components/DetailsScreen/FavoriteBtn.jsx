@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import favoriteIconWhite from '../../images/whiteHeartIcon.svg';
 import favoriteIconBlack from '../../images/blackHeartIcon.svg';
-import { getRouteInfo } from '../../helpers';
+import { getRouteInfo, getLS, setLS } from '../../helpers';
 
 const createFavoriteItem = (data, id, isFood) => ({
   id,
@@ -15,27 +15,27 @@ const createFavoriteItem = (data, id, isFood) => ({
   image: isFood ? data.strMealThumb : data.strDrinkThumb,
 });
 
-const checkFavorite = (id) => {
-  const currentFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+const checkItems = (id) => {
+  const currentFavorites = getLS('favoriteRecipes');
   if (currentFavorites) {
     return currentFavorites.some((item) => item.id === id);
   }
   return false;
 };
 
-const setLocalFavorite = (favoriteItem, id) => {
+const setLocalItems = (favoriteItem, id) => {
   let currentFavorites = localStorage.getItem('favoriteRecipes');
   if (!currentFavorites) {
     const favorites = JSON.stringify([favoriteItem]);
     localStorage.setItem('favoriteRecipes', favorites);
   } else {
     currentFavorites = JSON.parse(currentFavorites);
-    if (checkFavorite(id)) {
+    if (checkItems(id)) {
       currentFavorites = currentFavorites.filter((item) => item.id !== id);
     } else {
       currentFavorites.push(favoriteItem);
     }
-    localStorage.setItem('favoriteRecipes', JSON.stringify(currentFavorites));
+    setLS('favoriteRecipes', currentFavorites);
   }
 };
 
@@ -47,7 +47,7 @@ const FavoriteBtn = () => {
   const isFood = getRouteInfo(location).mainRoute === 'comidas';
   const favoriteItem = createFavoriteItem(Object.values(recipeData)[0][0], id, isFood);
   useEffect(() => {
-    setFavorite(checkFavorite(id));
+    setFavorite(checkItems(id));
   }, [id]);
 
   return (
@@ -57,7 +57,7 @@ const FavoriteBtn = () => {
       alt="Favorite button"
       onClick={() => {
         setFavorite(!favorite);
-        setLocalFavorite(favoriteItem, id);
+        setLocalItems(favoriteItem, id);
       }}
       data-testid="favorite-btn"
     />

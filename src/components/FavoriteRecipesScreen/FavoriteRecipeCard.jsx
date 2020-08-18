@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareBtn from './ShareBtn';
-import FavoriteBtn from './FavoriteBtn';
+import FavoriteBtn from '../DetailsScreen/FavoriteBtn';
 
 const FavoriteRecipeCard = ({ favoriteItem, favoriteItemIndex }) => (
   <div>

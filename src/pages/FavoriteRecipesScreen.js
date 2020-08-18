@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Header from '../components/Header/Header';
+import React, { useState } from 'react';
 import FavoriteRecipeCard from '../components/FavoriteRecipesScreen/FavoriteRecipeCard';
 import FilterBtn from '../components/FavoriteRecipesScreen/FilterBtn';
-import favoriteRecipes from '../actions/favoriteRecipes';
 import { getLS } from '../helpers';
+import { Header } from '../components';
 
 const filterFavorites = (arr, filter) => arr.filter((item) => {
   if (filter === 'food') {
@@ -19,23 +17,12 @@ const filterFavorites = (arr, filter) => arr.filter((item) => {
 });
 
 const FavoriteRecipesScreen = () => {
-  const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.favorites);
+  const favorites = getLS('favoriteRecipes');
   const [filter, setFilter] = useState('');
-  useEffect(() => {
-    dispatch(favoriteRecipes(getLS('favoriteRecipes')));
-  }, []); // eslint-disable-line
-  if (!favorites) {
-    return (
-      <div>
-        <Header />
-        <br />
-        Este perfil não possui receitas favoritas!
-      </div>
-    );
-  }
+
   return (
     <div>
+      <Header />
       <FilterBtn
         dataTestId="filter-by-food-btn"
         filter="food"
@@ -55,13 +42,13 @@ const FavoriteRecipesScreen = () => {
         text="All"
       />
 
-      {filterFavorites(favorites, filter).map((favoriteItem, index) => (
+      {favorites ? filterFavorites(favorites, filter).map((favoriteItem, index) => (
         <FavoriteRecipeCard
           key={favoriteItem.id}
           favoriteItem={favoriteItem}
           favoriteItemIndex={index}
         />
-      ))}
+      )) : null}
     </div>
   );
 };
