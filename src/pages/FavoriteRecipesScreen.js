@@ -6,18 +6,17 @@ import FilterBtn from '../components/FavoriteRecipesScreen/FilterBtn';
 import favoriteRecipes from '../actions/favoriteRecipes';
 import { getLS } from '../helpers';
 
-const filterFavorites = (arr, filter) =>
-  arr.filter((item) => {
-    if (filter === 'food') {
-      return item.type === 'comida';
-    }
+const filterFavorites = (arr, filter) => arr.filter((item) => {
+  if (filter === 'food') {
+    return item.type === 'comida';
+  }
 
-    if (filter === 'drink') {
-      return item.type === 'bebida';
-    }
+  if (filter === 'drink') {
+    return item.type === 'bebida';
+  }
 
-    return item;
-  });
+  return item;
+});
 
 const FavoriteRecipesScreen = () => {
   const dispatch = useDispatch();
@@ -26,10 +25,17 @@ const FavoriteRecipesScreen = () => {
   useEffect(() => {
     dispatch(favoriteRecipes(getLS('favoriteRecipes')));
   }, []); // eslint-disable-line
-
+  if (!favorites) {
+    return (
+      <div>
+        <Header />
+        <br />
+        Este perfil não possui receitas favoritas!
+      </div>
+    );
+  }
   return (
     <div>
-      <Header />
       <FilterBtn
         dataTestId="filter-by-food-btn"
         filter="food"

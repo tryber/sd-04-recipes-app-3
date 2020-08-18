@@ -1,6 +1,6 @@
 import * as actionType from '../actions/actionsType';
 
-const INITIAL_STATE = { loading: false, data: '', error: '' };
+const INITIAL_STATE = { loading: true, data: '', error: '' };
 
 const recRequest = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -18,7 +18,7 @@ const recRequest = (state = INITIAL_STATE, action) => {
     case actionType.FETCH_REC_FAILURE:
       return {
         ...state,
-        loading: false,
+        loading: true,
         error: action.payload,
       };
     default:

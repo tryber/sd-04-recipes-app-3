@@ -2,7 +2,7 @@ import * as actionType from '../actions/actionsType';
 
 // Foi necessário mudar o valor inicial de 'data' de '[]' para '{}' porque
 // estava bugando o valor exigido nas prop-types
-const INITIAL_STATE = { loading: false, data: {}, error: '' };
+const INITIAL_STATE = { loading: true, data: {}, error: '' };
 
 const apiRequest = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -20,7 +20,7 @@ const apiRequest = (state = INITIAL_STATE, action) => {
     case actionType.FETCH_MEALS_FAILURE:
       return {
         ...state,
-        loading: false,
+        loading: true,
         error: action.payload,
       };
     case actionType.CLEAN_DATA_STATE:

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useRouteMatch } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
@@ -32,7 +32,13 @@ const getTitle = (location) => {
 
 const Header = () => {
   const location = useLocation();
+  const foodRoute = useRouteMatch('/comidas/:id/');
+  const drinkRoute = useRouteMatch('/bebidas/:id/');
+  const exploreRoute = location.pathname.startsWith('/explorar');
   const [barStatus, toggleSearch] = useState(false);
+  if (
+    location.pathname === '/' || foodRoute !== null || drinkRoute !== null
+  ) return <div />;
 
   return (
     <React.Fragment>
@@ -44,7 +50,7 @@ const Header = () => {
             </div>
           </Link>
           <p data-testid="page-title">{getTitle(location)}</p>
-          {renderSearchBtn(location, toggleSearch, barStatus, getTitle)}
+          {!exploreRoute ? renderSearchBtn(location, toggleSearch, barStatus, getTitle) : null}
         </div>
         {barStatus ? <SearchBar /> : null}
       </div>

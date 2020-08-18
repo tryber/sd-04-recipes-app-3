@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+// import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchMeals } from '../actions/apiRequest';
 import {
@@ -16,11 +17,13 @@ const MealsScreen = ({ data, fetchMealsProps }) => {
     meals = Object.values(data)[0] ? Object.values(data)[0].slice(0, 12) : [];
   }
   useEffect(() => {
+    // if (!meals.length) {
     if (filterCategory === 'All') {
       fetchMealsProps('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     } else {
       fetchMealsProps(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${filterCategory}`);
     }
+    // }
   }, [filterCategory, fetchMealsProps]);
 
   return (
