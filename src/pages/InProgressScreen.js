@@ -6,13 +6,7 @@ import { fetchMeals } from '../actions/apiRequest';
 import IngredientsList from '../components/InProgressScreen/IngredientsList';
 import ShareBtn from '../components/InProgressScreen/ShareBtn';
 import FavoriteBtn from '../components/DetailsScreen/FavoriteBtn';
-// import { getLS } from '../helpers';
-
-// Get the desired object key from the recipe and returns an array
-const recipeKeysToArray = (recipe, key) => Object.keys(recipe)
-  .filter((item) => item.startsWith(key))
-  .map((item) => recipe[item])
-  .filter((item) => item !== '' && item !== null);
+import { recipeKeysToArray } from '../helpers';
 
 // Returns an array of objects with ingredient/measure pairs
 const getIngredients = (recipe) => {
