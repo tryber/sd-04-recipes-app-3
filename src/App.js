@@ -6,6 +6,7 @@ import {
   MealsScreen,
   DrinksScreen,
   DetailsScreen,
+  DoneRecipesScreen,
   ProfileScreen,
   ExploreScreen,
   FoodExploreScreen,
@@ -34,7 +35,7 @@ function App() {
           <Route exact path="/explorar/bebidas/ingredientes" component={IngredientsExploreScreen} />
           <Route path="/explorar/comidas/area" component={AreaExploreScreen} />
           <Route path="/perfil" component={ProfileScreen} />
-          <Route path="/receitas-feitas" />
+          <Route path="/receitas-feitas" component={DoneRecipesScreen} />
           <Route path="/receitas-favoritas" component={FavoriteRecipesScreen} />
           <Route exact path="*" />
         </Switch>

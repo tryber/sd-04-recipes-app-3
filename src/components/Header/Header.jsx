@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, Link, useRouteMatch } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import searchIcon from '../../images/searchIcon.svg';
 import profileIcon from '../../images/profileIcon.svg';
@@ -7,8 +7,8 @@ import '../../css/Header.css';
 
 const renderSearchBtn = (location, toggleSearch, barStatus, getTitle) => {
   const title = getTitle(location);
-  if (title.includes('Explorar') || title.includes('Receitas') || title.includes('Perfil')) {
-    if (!title.includes('Origem')) return <div className="empty" />;
+  if ((title.includes('Explorar') && !title.includes('Origem')) || title.includes('Receitas') || title.includes('Perfil')) {
+    return <div className="empty" />;
   }
   return (
     <button type="button" className="ico-search-btn" onClick={() => toggleSearch(!barStatus)}>
@@ -32,13 +32,7 @@ const getTitle = (location) => {
 
 const Header = () => {
   const location = useLocation();
-  const foodRoute = useRouteMatch('/comidas/:id/');
-  const drinkRoute = useRouteMatch('/bebidas/:id/');
-  const exploreRoute = location.pathname.startsWith('/explorar');
   const [barStatus, toggleSearch] = useState(false);
-  if (
-    location.pathname === '/' || foodRoute !== null || drinkRoute !== null
-  ) return <div />;
 
   return (
     <React.Fragment>
@@ -50,7 +44,7 @@ const Header = () => {
             </div>
           </Link>
           <p data-testid="page-title">{getTitle(location)}</p>
-          {!exploreRoute ? renderSearchBtn(location, toggleSearch, barStatus, getTitle) : null}
+          {renderSearchBtn(location, toggleSearch, barStatus, getTitle)}
         </div>
         {barStatus ? <SearchBar /> : null}
       </div>

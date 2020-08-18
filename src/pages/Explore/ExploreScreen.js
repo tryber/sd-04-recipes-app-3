@@ -6,14 +6,13 @@ import Footer from '../../components/Footer/Footer';
 const ExploreScreen = () => (
   <div>
     <Header />
-    <Footer />
     <div className="card">
       <Link className="card-body" to="/explorar/comidas" data-testid="explore-food">Explorar Comidas</Link>
     </div>
     <div className="card">
       <Link className="card-body" to="/explorar/bebidas" data-testid="explore-drinks">Explorar Bebidas</Link>
     </div>
-    <div />
+    <Footer />
   </div>
 );
 
