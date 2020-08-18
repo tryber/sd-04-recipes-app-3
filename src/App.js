@@ -16,6 +16,8 @@ import {
   AreaExploreScreen,
 } from './pages';
 
+// Comment to remove
+
 function App() {
   return (
     <div id="meals">
@@ -31,8 +33,15 @@ function App() {
           <Route exact path="/explorar" component={ExploreScreen} />
           <Route exact path="/explorar/comidas" component={FoodExploreScreen} />
           <Route exact path="/explorar/bebidas" component={FoodExploreScreen} />
-          <Route path="/explorar/comidas/ingredientes" component={IngredientsExploreScreen} />
-          <Route exact path="/explorar/bebidas/ingredientes" component={IngredientsExploreScreen} />
+          <Route
+            path="/explorar/comidas/ingredientes"
+            component={IngredientsExploreScreen}
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={IngredientsExploreScreen}
+          />
           <Route path="/explorar/comidas/area" component={AreaExploreScreen} />
           <Route path="/perfil" component={ProfileScreen} />
           <Route path="/receitas-feitas" component={DoneRecipesScreen} />
