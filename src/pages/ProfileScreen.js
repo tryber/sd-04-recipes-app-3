@@ -6,7 +6,7 @@ import { getLS } from '../helpers';
 
 const ProfileScreen = () => {
   const [redirectTo, setRedirectTo] = useState('');
-  const [userInfo] = useState(getLS('user') ? getLS('user') : 'test');
+  const [userInfo] = useState(getLS('user') ? getLS('user') : '');
 
   if (redirectTo === 'done-recipes') {
     return <Redirect to="/receitas-feitas" />;
