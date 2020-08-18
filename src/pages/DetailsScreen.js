@@ -47,7 +47,7 @@ const getIngredients = (recipe) => {
   }));
 };
 
-// ===== Funções criadas para diminuir complexidade cognitiva =====
+// =====  Funções criadas para diminuir complexidade cognitiva =====
 const fetchs = (dispatch, idPage, isMeal) => (isMeal
   ? (dispatch(
     fetchMeals(
