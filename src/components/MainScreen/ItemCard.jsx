@@ -6,7 +6,7 @@ const ItemCard = (name, image, index, link) => (
     <Link to={link}>
       <div>
         <img src={image} alt="Imagem da receita" className="card-img-top" data-testid={`${index}-card-img`} />
-        <h1 className="card-title badge badge-secondary" data-testid={`${index}-card-name`}>{name}</h1>
+        <h1 className="card-title badge " data-testid={`${index}-card-name`}>{name}</h1>
       </div>
     </Link>
   </div>
