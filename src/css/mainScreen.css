@@ -1,12 +1,16 @@
+@font-face {
+  font-family: DotOutline;
+  src: url('//db.onlinewebfonts.com/c/0c86dfc1b0efbd887e62112f6aaffd17?family=DotOutline');
+}
+
 @media screen and ( min-width : 360px ) and ( min-height : 640px ) {
 
   footer {
-    background-color: gray;
     height: 80px;
   }
 
   .item-card {
-    background-color: gray;
+    background-color: black;
     border-radius: 10px;
     font-size: 10pt;
     margin: 15px;
@@ -29,12 +33,11 @@
 @media screen and ( max-width : 360px ) and ( max-height : 640px ) {
 
   footer {
-    background-color: gray;
     height: 40px;
   }
 
   .item-card {
-    background-color: gray;
+    background-color: black;
     border-radius: 10px;
     font-size: 10pt;
     margin: 3%;
@@ -53,4 +56,23 @@
     margin-bottom: 60px;
   }
 
+}
+
+.categories-container {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.category-btn {
+  margin: 10px;
+  text-align: center;
+  background: #009fe3;
+  font-family: DotOutline;
+  font-weight: 800;
+}
+
+.card-title {
+  color: aliceblue;
 }

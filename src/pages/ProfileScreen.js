@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { Collapse, Button, Form } from 'react-bootstrap';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import { getLS } from '../helpers';
@@ -19,24 +20,24 @@ const ProfileScreen = () => {
   }
 
   return (
-    <div>
+    <Form>
       <Header />
       <h3 data-testid="profile-email">{userInfo.email}</h3>
-      <button
+      <Button
         type="button"
         data-testid="profile-done-btn"
         onClick={() => setRedirectTo('done-recipes')}
       >
         Receitas Feitas
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         data-testid="profile-favorite-btn"
         onClick={() => setRedirectTo('favorite-recipes')}
       >
         Receitas Favoritas
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         data-testid="profile-logout-btn"
         onClick={() => {
@@ -45,9 +46,9 @@ const ProfileScreen = () => {
         }}
       >
         Sair
-      </button>
+      </Button>
       <Footer />
-    </div>
+    </Form>
   );
 };
 

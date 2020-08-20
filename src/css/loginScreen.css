@@ -1,9 +1,16 @@
+@font-face {
+  font-family: Karumbi;
+  src: url('//db.onlinewebfonts.com/c/8af4f981069f65fe3806caf753e04464?family=Karumbi');
+}
+
 .form-group {
   align-items: center;
   align-self: center;
   display: flex;
+  flex-flow: column;
   max-height: 640px;
   max-width: 360px;
+  margin-top: 180px;
 }
 
 .login-container {
@@ -11,5 +18,33 @@
   justify-content: center;
   max-height: 1240px;
   min-height: 640px;
+  padding: 15px;
   width: 100%;
+}
+
+.logo-img {
+  height: 180px;
+  position: absolute;
+  top: 20px;
+  width: 180px;
+}
+
+.login-submit-btn {
+  background-color: rgb(255, 0, 0);
+  color: black;
+  font-weight: 800;
+  margin: 20px 0;
+  width: 50%;
+}
+
+.form-control {
+  margin: 10px 0;
+}
+
+.slogan-text {
+  margin-top: 20px;
+  font-family: Karumbi;
+  font-size: 33pt;
+  text-align: center;
+  padding: 15px;
 }
